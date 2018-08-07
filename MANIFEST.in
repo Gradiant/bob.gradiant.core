@@ -1,0 +1,2 @@
+include *.rst bootstrap*.py buildout.cfg version.txt src
+exclude .installed.cfg

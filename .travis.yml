@@ -1,0 +1,57 @@
+language: python
+
+os:
+  - linux
+  #- osx Not supported yet
+python:
+  - "2.7"
+  - "3.5"
+install:
+  - sudo apt-get update
+  # We do this conditionally because it saves us some downloading if the
+  # version is the same.
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+      if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then     
+        wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+      else
+        # not available yet
+        wget https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh -O miniconda.sh;
+      fi
+    else
+      if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then  
+        wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+      else 
+        # not available yet
+        wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh;
+      fi
+    fi
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda config --add channels conda-forge
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+
+  # Replace dep1 dep2 ... with your dependencies
+  - conda create -q -n travis-test-bob python=$TRAVIS_PYTHON_VERSION
+  - source activate travis-test-bob
+  - pip install gitpython bob.extension sphinx_rtd_theme
+  - python bootstrap-buildout.py
+  - bin/buildout
+
+script:
+  - bin/nosetests -v
+  - bin/script_example.py
+  - bin/sphinx-build -b html doc doc/html
+
+# Deploy using travis builtin GitHub Pages support
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: doc/html
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
+
