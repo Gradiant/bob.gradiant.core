@@ -6,36 +6,37 @@
 
 [Bob](https://www.idiap.ch/software/bob/) package (python) which defines useful rules and interfaces for biometrics researching.
 
-#### Environment
+
+## Environment
 
 We strongly recommend to use [conda](https://conda.io/docs/) to manage the project environment.
 
 There is available two shared recipes to create the enviroment for this project on anaconda cloud.
 
-###### Linux
+*Linux*
 ~~~
 conda env create gradiant/biometrics_py27
 ~~~
 
-###### Mac
+*Mac Os*
 ~~~
 conda env create gradiant/biometrics_mac_py27
 ~~~
 
 If you prefer to install the environment from yaml files:
 
-###### Linux
+*Linux*
 ~~~
 conda env create -f environments/biometrics_ubuntu_py27.yml
 ~~~
 
-###### Mac
+*Mac Os*
 ~~~
 conda env create -f environments/biometrics_mac_py27.yml
 ~~~
 
 
-#### Installation
+## Installation
 
 We assume you have activate biometrics_py27 (or biometrics_mac_py27) environment 
 
@@ -51,19 +52,19 @@ Then, you can buildout the project with:
   bin/buildout
 ~~~
 
-#### Test
+## Test
 
 ~~~
   bin/nosetests -v
 ~~~
 
-#### Clean
+## Clean
 
 ~~~
   python clean.py
 ~~~
 
-#### Coverage
+## Coverage
 
 ~~~  
   bin/coverage run -m unittest discover
@@ -73,7 +74,7 @@ Then, you can buildout the project with:
 
 Coverage result will be store on htmlcov/.
 
-#### Doc
+## Doc
 
 ~~~
 bin/sphinx-build -b html doc/ doc/html/
