@@ -1,14 +1,16 @@
 # bob.gradiant.core 
-[![Build Status](http://devel.gradiant.org/jenkins_biometrics/buildStatus/icon?job=bob.gradiant.core/master)](http://devel.gradiant.org/jenkins_biometrics/job/bob.gradiant.core/job/master/)
-[![Doc](http://img.shields.io/badge/docs-latest-orange.svg)](http://10.5.1.61:8000/doc/private/bob/bob.gradiant.core/)
 
-[Bob](https://www.idiap.ch/software/bob/) package template for Gradiant toolboxes.
+[![Build Status](https://travis-ci.org/acostapazo/bob.gradiant.core.svg?branch=master)](https://travis-ci.org/acostapazo/bob.gradiant.core)
+[![Doc](http://img.shields.io/badge/docs-stable-green.svg)](https://acostapazo.github.io/bob.gradiant.core/)
+
+
+[Bob](https://www.idiap.ch/software/bob/) package (python) which defines useful rules and interfaces for biometrics researching.
 
 #### Environment
 
-We strongly recommend to use [conda](https://conda.io/docs/) to manage project environment.
+We strongly recommend to use [conda](https://conda.io/docs/) to manage the project environment.
 
-There is available two shared recipes to create the enviroment for this project.
+There is available two shared recipes to create the enviroment for this project on anaconda cloud.
 
 ###### Linux
 ~~~
@@ -41,7 +43,7 @@ We assume you have activate biometrics_py27 (or biometrics_mac_py27) environment
 source activate biometrics_py27
 ~~~
 
-Then, you can do the following:
+Then, you can buildout the project with:
 
 ~~~
   cd bob.gradiant.core
