@@ -10,7 +10,7 @@ setup(
     version=get_version(),
     description='Python package which defines useful rules and interfaces for biometrics researching',
     url='http://pypi.python.org/pypi/template-gradiant-python',
-    license='GPLv3',
+    license='BSD-3',
     author='Biometrics Team (Gradiant)',
     author_email='biometrics.support@gradiant.org',
     long_description=open('README.md').read(),
