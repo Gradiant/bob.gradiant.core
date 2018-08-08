@@ -34,7 +34,7 @@ dependencies:
 - conda-forge::functools32=3.2.3.2=py27_1
 - conda-forge::futures=3.1.1=py27_0
 - conda-forge::gitdb2=2.0.2=py27_0
-- conda-forge::gitpython=2.1.7=py27_0
+- conda-forge::gitpython=2.1.11=py27_0
 - conda-forge::h5py=2.7.0=np111py27_0
 - conda-forge::hdf5=1.8.17=11
 - conda-forge::idna=2.5=py27_0
