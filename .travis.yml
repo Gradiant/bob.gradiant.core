@@ -7,7 +7,7 @@ services:
 
 before_install:
   - docker pull acostapazo/bob.gradiant:latest
-  - docker run -v .
+  - docker run -v . acostapazo/bob.gradiant:latest
 
 script:
   - python bootstrap-buildout.py
