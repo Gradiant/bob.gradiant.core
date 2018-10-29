@@ -1,5 +1,9 @@
 # bob.gradiant.core 
 
+[![Build Status](https://travis-ci.org/Gradiant/bob.gradiant.core.svg?branch=master)](https://travis-ci.org/Gradiant/bob.gradiant.core)
+
+
+
 [Bob](https://www.idiap.ch/software/bob/) package (python) which defines useful rules and interfaces for biometrics researching.
 
 
