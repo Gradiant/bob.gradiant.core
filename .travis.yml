@@ -7,14 +7,10 @@ services:
 
 before_install:
   - docker pull acostapazo/bob.gradiant:latest
-  - docker run -v . acostapazo/bob.gradiant:latest
+
 
 script:
-  - python bootstrap-buildout.py
-  - bin/buildout
-  - bin/nosetests -v
-  - bin/script_example.py
-  - bin/sphinx-build -b html doc doc/html
+  - docker run -v $(pwd):/bob.gradiant.core acostapazo/bob.gradiant:latest bin/bash -c "cd bob.gradiant.core; ./ci.sh"
 
 after_script:
   - docker images
