@@ -3,7 +3,7 @@
 
 [Bob](https://www.idiap.ch/software/bob/) package (python) which defines useful rules and interfaces for biometrics researching.
 
-# Docker 
+## Docker 
 
 The fastest way to contact the package is to use docker. 
 
