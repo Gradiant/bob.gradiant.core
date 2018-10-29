@@ -1,10 +1,29 @@
-# bob.gradiant.core 
-
-[![Build Status](https://travis-ci.org/Gradiant/bob.gradiant.core.svg?branch=master)](https://travis-ci.org/Gradiant/bob.gradiant.core)
-
+# bob.gradiant.core  [![Build Status](https://travis-ci.org/Gradiant/bob.gradiant.core.svg?branch=master)](https://travis-ci.org/Gradiant/bob.gradiant.core) [![Doc](http://img.shields.io/badge/docs-latest-orange.svg)](https://gradiant.github.io/bob.gradiant.core/)
 
 
 [Bob](https://www.idiap.ch/software/bob/) package (python) which defines useful rules and interfaces for biometrics researching.
+
+# Docker 
+
+The fastest way to contact the package is to use docker. 
+
+You can dowload the docker image from dockerhub
+
+~~~
+docker pull acostapazo/bob.gradiant:latest 
+~~~
+
+or build it from Dockerfile
+
+~~~
+docker build --no-cache -t repo.gradiant.org:9007/$IMAGE .
+~~~
+
+To check if everything is alright you can run the ci.sh script with:
+
+~~~
+docker run -v $(pwd):/bob.gradiant.core acostapazo/bob.gradiant:latest bin/bash -c "cd bob.gradiant.core; ./ci.sh"
+~~~
 
 
 ## Environment
