@@ -7,7 +7,7 @@
 
 The fastest way to contact the package is to use docker. 
 
-You can dowload the docker image from dockerhub
+You can download the docker image from dockerhub
 
 ~~~
 docker pull acostapazo/bob.gradiant:latest 
