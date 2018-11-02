@@ -16,7 +16,7 @@ docker pull acostapazo/bob.gradiant:latest
 or build it from Dockerfile
 
 ~~~
-docker build --no-cache -t repo.gradiant.org:9007/$IMAGE .
+docker build --no-cache -t acostapazo/bob.gradiant:latest .
 ~~~
 
 To check if everything is alright you can run the ci.sh script with:
