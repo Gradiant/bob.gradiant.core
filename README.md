@@ -16,7 +16,7 @@ docker pull acostapazo/bob.gradiant:latest
 or build it from Dockerfile
 
 ~~~
-docker build --no-cache -t acostapazo/bob.gradiant:latest .
+docker build --no-cache -t acostapazo/bob.gradiant:latest  .
 ~~~
 
 To check if everything is alright you can run the ci.sh script with:
@@ -25,51 +25,42 @@ To check if everything is alright you can run the ci.sh script with:
 docker run -v $(pwd):/bob.gradiant.core acostapazo/bob.gradiant:latest bin/bash -c "cd bob.gradiant.core; ./ci.sh"
 ~~~
 
-
-## Environment
-
-We strongly recommend to use [conda](https://conda.io/docs/) to manage the project environment.
-
-There is available two shared recipes to create the enviroment for this project on anaconda cloud.
-
-*Linux*
-~~~
-conda env create gradiant/biometrics_py27
-~~~
-
-*Mac Os*
-~~~
-conda env create gradiant/biometrics_mac_py27
-~~~
-
-If you prefer to install the environment from yaml files:
-
-*Linux*
-~~~
-conda env create -f environments/biometrics_ubuntu_py27.yml
-~~~
-
-*Mac Os*
-~~~
-conda env create -f environments/biometrics_mac_py27.yml
-~~~
+## Installation (Manual)
 
 
-## Installation
+1. Install conda -> https://conda.io/docs/user-guide/install/index.html
 
-We assume you have activate biometrics_py27 (or biometrics_mac_py27) environment 
+2. Create the conda env from file (environment_linux.yml)
+
+Note: You should be inside the package directory (bob.gradiant)
 
 ~~~
-source activate biometrics_py27
+    conda create --name bob.gradiant python=2.7
+    conda config --env --add channels defaults
+    conda config --env --add channels https://www.idiap.ch/software/bob/conda
 ~~~
 
-Then, you can buildout the project with:
+3. Activate the environment
 
 ~~~
-  cd bob.gradiant.core
-  python bootstrap-buildout.py
-  bin/buildout
+   source activate bob.gradiant
 ~~~
+
+4. Install dependencies
+
+~~~
+    conda install gitpython h5py pillow scikit-learn mock sphinx_rtd_theme bob.extension
+    pip install enum34
+~~~
+
+
+4. Buildout the bob package
+
+~~~
+    #You should be inside the activated conda env (bob.gradiant.pipelines)
+    python bootstrap-buildout.py
+    bin/buildout
+~~
 
 ## Test
 
@@ -98,3 +89,4 @@ Coverage result will be store on htmlcov/.
 ~~~
 bin/sphinx-build -b html doc/ doc/html/
 ~~~
+
