@@ -30,20 +30,18 @@ docker run -v $(pwd):/bob.gradiant.core acostapazo/bob.gradiant:latest bin/bash 
 
 1. Install conda -> https://conda.io/docs/user-guide/install/index.html
 
-2. Create the conda env from file (environment_linux.yml)
-
-Note: You should be inside the package directory (bob.gradiant)
+2. Create the conda env
 
 ~~~
     conda create --name bob.gradiant python=2.7
-    conda config --env --add channels defaults
-    conda config --env --add channels https://www.idiap.ch/software/bob/conda
 ~~~
 
-3. Activate the environment
+3. Activate the environment and add some channels
 
 ~~~
    source activate bob.gradiant
+   conda config --env --add channels defaults
+   conda config --env --add channels https://www.idiap.ch/software/bob/conda
 ~~~
 
 4. Install dependencies
