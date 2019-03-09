@@ -60,12 +60,12 @@ class TestFeaturesSaver(unittest.TestCase):
         features_saver.save('basename', dict_features)
         filename = os.path.join(TestUtils.get_result_path(), 'basename.h5')
         file_root = h5py.File(filename, 'r')
-        keyframe = file_root['/keyframe']
-        features = file_root['/features']
+        keyframe = file_root['/keyframe'][...]
+        keyframe = [x.decode('utf-8') for x in keyframe]
+        features = file_root['/features'][...]
 
-        self.assertTrue(np.array_equal(keyframe[...], keyframe_array))
-        self.assertTrue(np.array_equal(features[...], features_array))
-
+        self.assertTrue(np.array_equal(keyframe, keyframe_array))
+        self.assertTrue(np.array_equal(features, features_array))
 
 
 if __name__ == '__main__':

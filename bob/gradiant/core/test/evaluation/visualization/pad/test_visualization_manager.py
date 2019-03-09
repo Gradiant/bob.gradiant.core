@@ -4,6 +4,7 @@ import numpy as np
 from bob.gradiant.core import PadVisualizationManager
 from bob.gradiant.core.test.test_utils import TestUtils
 
+
 class UnitTestVisualization(unittest.TestCase):
 
     def test_create_no_dict_performance(self):
@@ -70,10 +71,9 @@ class UnitTestVisualization(unittest.TestCase):
                 for k, fps in enumerate(fps_list):
                     self.assertTrue(dict_performance[subset][attack][metric][fps].keys().__len__() == 10)
 
-
     def test_visualization_manager_end2end(self):
         date = "16/09/2017"
-        items = ["ATTACK", "NO_ATTACK"]
+        keys = ["ATTACK", "NO_ATTACK"]
         name_dataset = "OULU"
         name_processor = "intel i7"
         fps = 5
@@ -83,30 +83,33 @@ class UnitTestVisualization(unittest.TestCase):
         labels_true = []
         for i in range(n_pad):
             if i <= n_pad * 0.7:
-                labels_true.append(items[0])
+                labels_true.append(keys[0])
+                labels.append(keys[0])
             else:
-                labels_true.append(items[1])
+                labels_true.append(keys[1])
+                labels.append(keys[1])
 
             rnd = np.random.random((1,))
             if rnd > 0.5:
-                labels.append(items[0])
+                labels_true.append(keys[0])
+                labels.append(keys[1])
             else:
-                labels.append(items[1])
+                labels_true.append(keys[1])
+                labels.append(keys[0])
 
-        dict_performance = {}
-        dict_performance["processor"] = name_processor
-        dict_performance["framerate"] = fps
-        dict_performance["total_time_of_acquisition"] = tcap
-        dict_performance["processed_frames"] = 10
-        dict_performance["cpu_time_list"] = 0.5 * tcap * np.random.random_sample((n_pad,))
-        dict_performance["time_of_delay_list"] = 1000.0 * np.random.random_sample((n_pad,))
-        dict_performance["scores_list"] = np.random.random_sample((n_pad,))
-        dict_performance["labels_list"] = labels
-        dict_performance["benchmark_labels_list"] = labels_true
-
-        pad_visualization_manager = PadVisualizationManager(name_dataset, "end2end", date, dict_performance, TestUtils.get_result_path())
+        dict_performance = {"processor": name_processor,
+                            "framerate": fps,
+                            "total_time_of_acquisition": tcap,
+                            "processed_frames": 10,
+                            "cpu_time_list": 0.5 * tcap * np.random.random_sample((n_pad,)),
+                            "time_of_delay_list": 1000.0 * np.random.random_sample((n_pad,)),
+                            "scores_list": np.random.random_sample((n_pad,)),
+                            "labels_list": labels,
+                            "benchmark_labels_list": labels_true
+        }
+        pad_visualization_manager = PadVisualizationManager(name_dataset, "end2end", date,
+                                                            dict_performance, TestUtils.get_result_path())
         pad_visualization_manager.plot_table_end2end()
-
 
 
 if __name__ == '__main__':

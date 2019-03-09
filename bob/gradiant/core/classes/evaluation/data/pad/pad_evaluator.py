@@ -9,13 +9,15 @@ from bob.gradiant.core.classes.evaluation.data.pad.scores_organizer import Score
 from bob.gradiant.core.classes.evaluation.data.performance_extractor import PerformanceExtractor
 
 tree = lambda: collections.defaultdict(tree)
+
+
 class PadEvaluator(object):
 
     @staticmethod
     def run(dict_path_experiment_results, dict_metrics):
 
         dict_pad_data = {}
-        for subsets, base_path in dict_path_experiment_results.iteritems():
+        for subsets, base_path in dict_path_experiment_results.items():
             list_experiment_result = ExperimentResultLoader.load_from_folder(base_path)
             dict_pad_data[subsets] = ScoresOrganizer.run(list_experiment_result)
 
@@ -24,14 +26,14 @@ class PadEvaluator(object):
         subset = 'Dev'
         list_metrics = dict_metrics['Dev']
         for parameters in subset_data.parameters_grid:
-            score_container = PadEvaluator.get_score_container_filtered_by_parameters(parameters, subset_data.list_pad_data)
+            score_container = PadEvaluator.get_score_container_filtered_by_parameters(parameters,
+                                                                                      subset_data.list_pad_data)
 
             if score_container.is_empty():
                 continue
             performance_from_metrics = PadEvaluator.calculate_performance(score_container, list_metrics)
             dict_performance[subset][parameters['type_attack']][parameters['framerate']][
                 parameters['time_capture']] = performance_from_metrics
-
 
         if dict_pad_data.get('Test') is None:
             return dict_performance
@@ -41,15 +43,15 @@ class PadEvaluator(object):
         list_metrics_threshold = [metric.split("@")[-1] for metric in list_metrics_test]
         indices = [len(metric.split("@")) == 1 for metric in list_metrics_test]
         for i, value in enumerate(indices):
-            if value == True:
+            if value:
                 list_metrics_threshold[i] = None
 
-
         for parameters in subset_data.parameters_grid:
-            score_container = PadEvaluator.get_score_container_filtered_by_parameters(parameters, subset_data.list_pad_data)
+            score_container = PadEvaluator.get_score_container_filtered_by_parameters(parameters,
+                                                                                      subset_data.list_pad_data)
             if score_container.is_empty():
                 continue
-            if set([metric for metric in list_metrics_threshold if metric is not None]).issubset(list_metrics)==False:
+            if not set([metric for metric in list_metrics_threshold if metric is not None]).issubset(list_metrics):
                 raise TypeError("Reference threshold has not been calculated")
 
             threshold = PadEvaluator.retrieve_threshold(dict_performance, parameters, list_metrics_threshold)
@@ -91,14 +93,18 @@ class PadEvaluator(object):
     @staticmethod
     def rearrange_dict_performance_for_visualization(dict_performance, list_metrics_dummy):
         dict_performance_visualization = tree()
-        for subset in dict_performance.keys():
-            for type_attack in dict_performance[subset].keys():
-                for framerate in dict_performance[subset][type_attack].keys():
-                    for time_capture in dict_performance[subset][type_attack][framerate].keys():
+        for subset in dict_performance:
+            for type_attack in dict_performance[subset]:
+                for framerate in dict_performance[subset][type_attack]:
+                    for time_capture in dict_performance[subset][type_attack][framerate]:
                         for metric in list_metrics_dummy:
-                            if metric not in dict_performance[subset][type_attack][framerate][time_capture].keys():
+                            if metric not in dict_performance[subset][type_attack][framerate][time_capture]:
                                 continue
-                            dict_performance_visualization[subset][type_attack][metric][framerate][time_capture] = \
+                            if isinstance(type_attack, str):
+                                decoded_type_attack = type_attack
+                            else:
+                                decoded_type_attack = type_attack.decode('utf-8')
+                            dict_performance_visualization[subset][decoded_type_attack][metric][framerate][time_capture] = \
                                 dict_performance[subset][type_attack][framerate][time_capture][metric]
         fact = lambda x: 1 if x == 0 else x * fact(x - 1)
         dict_performance_visualization = PadEvaluator.default_to_regular(dict_performance_visualization)
@@ -107,7 +113,7 @@ class PadEvaluator(object):
     @staticmethod
     def default_to_regular(d):
         if isinstance(d, collections.defaultdict):
-            d = {k: PadEvaluator.default_to_regular(v) for k, v in d.iteritems()}
+            d = {k: PadEvaluator.default_to_regular(v) for k, v in d.items()}
         return d
 
     @staticmethod
@@ -116,9 +122,7 @@ class PadEvaluator(object):
         for metric in list_metric_threshold:
             if metric is not None:
                 threshold.append(dict_performance['Dev'][parameters['type_attack']][parameters['framerate']]
-                         [parameters['time_capture']][metric]['threshold'])
+                                 [parameters['time_capture']][metric]['threshold'])
             else:
                 threshold.append(None)
         return threshold
-
-

@@ -8,7 +8,7 @@ import unicodedata
 
 def convert_from_unicode_string(dict_unicode):
     coverted_dict = {}
-    for key, value in dict_unicode.iteritems():
+    for key, value in dict_unicode.items():
         coverted_key = unicodedata.normalize('NFKD', key).encode('ascii', 'ignore')
         coverted_dict[coverted_key] = value
     return coverted_dict

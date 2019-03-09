@@ -46,7 +46,6 @@ class UnitTestFeaturesExtractorManager(unittest.TestCase):
                           )
 
     @patch('bob.gradiant.core.classes.storage.features_saver.FeaturesSaver.save', MagicMock())
-    # @patch('bob.gradiant.data.protocols.classes.informer.informer.Informer.message', MagicMock())
     def test_run_with_recreate_true(self):
 
         features_saver = FeaturesSaver(self.base_path)
@@ -56,12 +55,11 @@ class UnitTestFeaturesExtractorManager(unittest.TestCase):
         features_extractor_manager.run(self.mock_access, informer=informer, recreate=True)
 
         self.mock_access.load.assert_called_once()
-        self.mock_features_extractor.run.assert_called_once_with(self.dict_images, annotations = None)
+        self.mock_features_extractor.run.assert_called_once_with(self.dict_images, annotations=None)
         features_saver.save.assert_called_once()
         # informer.message.assert_called_once()
 
     @patch('bob.gradiant.core.classes.storage.features_saver.FeaturesSaver.save', MagicMock())
-    # @patch('bob.gradiant.data.protocols.classes.informer.informer.Informer.message', MagicMock())
     def test_run_with_recreate_false_with_no_exists_file(self):
 
         features_saver = FeaturesSaver(self.base_path)
@@ -71,7 +69,7 @@ class UnitTestFeaturesExtractorManager(unittest.TestCase):
         features_extractor_manager.run(self.mock_access, informer=informer, recreate=False)
 
         self.mock_access.load.assert_called_once()
-        self.mock_features_extractor.run.assert_called_once_with(self.dict_images, annotations = None)
+        self.mock_features_extractor.run.assert_called_once_with(self.dict_images, annotations=None)
         FeaturesSaver.save.assert_called_once()
         # informer.message.assert_called_once()
 
@@ -92,11 +90,3 @@ class UnitTestFeaturesExtractorManager(unittest.TestCase):
 
         if os.path.isdir(self.base_path):
             shutil.rmtree(self.base_path)
-
-
-
-
-
-
-
-

@@ -3,7 +3,7 @@
 # Copyright (C) 2017 Gradiant, Vigo, Spain
 import os
 from abc import ABCMeta, abstractmethod
-from bob.gradiant.core.classes.accesses.access_modificator import AccessModificator
+from bob.gradiant.core.classes.accesses.access_modifier import AccessModifier
 from enum import Enum
 
 
@@ -17,7 +17,7 @@ class Database(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self, base_path, type_database = TypeDatabase.SPLIT, annotation_base_path = None):
+    def __init__(self, base_path, type_database=TypeDatabase.SPLIT, annotation_base_path=None):
         if not os.path.isdir(base_path):
             raise IOError
         self.base_path = base_path
@@ -25,12 +25,8 @@ class Database(object):
         self.annotation_base_path = annotation_base_path
 
     @abstractmethod
-    def __str__(self, name = 'Database'):
+    def __str__(self, name='Database'):
         return '{}: base_path : {} {}'.format(name, self.base_path, self.type_database)
-
-    @abstractmethod
-    def get_all_accesses(self, access_modificator=AccessModificator()):
-        raise NotImplementedError
 
     @abstractmethod
     def get_protocols(self):
@@ -41,9 +37,21 @@ class Database(object):
         raise NotImplementedError
 
     @abstractmethod
-    def get_ground_truth(self, list_basename):
+    def get_capture_devices(self):
         raise NotImplementedError
 
     @abstractmethod
     def get_attack_dict(self):
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_all_accesses(self, access_modifier=AccessModifier()):
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_all_labels(self, protocol):
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_ground_truth(self, protocol):
         raise NotImplementedError

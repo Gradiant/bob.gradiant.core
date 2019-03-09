@@ -28,18 +28,14 @@ class UnitTestTimestampNormalizer(unittest.TestCase):
 
         normalized_dict_images = TimestampNormalizer.run(dict_images)
 
-        reference_list_keys = [x - 1500000000 for x in sorted(dict_images.keys())]
-        self.assertEqual(reference_list_keys,sorted(normalized_dict_images.keys()))
+        reference_list_keys = [x - 1500000000 for x in sorted(list(dict_images))]
+        self.assertEqual(reference_list_keys, sorted(list(normalized_dict_images)))
 
     def test_run_with_syntetic_data_start_on_0(self):
         timestamp_reference = 0
-        dict_images = TestUtils.get_synthetic_dict_image( timestamp_reference= timestamp_reference)
+        dict_images = TestUtils.get_synthetic_dict_image(timestamp_reference=timestamp_reference)
 
         normalized_dict_images = TimestampNormalizer.run(dict_images)
 
-        reference_list_keys = [x - timestamp_reference for x in sorted(dict_images.keys())]
-        self.assertEqual(reference_list_keys,sorted(normalized_dict_images.keys()))
-
-
-
-
+        reference_list_keys = [x - timestamp_reference for x in sorted(list(dict_images))]
+        self.assertEqual(reference_list_keys, sorted(list(normalized_dict_images)))

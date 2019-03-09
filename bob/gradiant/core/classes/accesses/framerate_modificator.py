@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Gradiant's Biometrics Team <biometrics.support@gradiant.org>
 # Copyright (C) 2017 Gradiant, Vigo, Spain
-
+from __future__ import division
 
 class FramerateModificator(object):
 
@@ -18,10 +18,10 @@ class FramerateModificator(object):
 
         dict_images_new_framerate = {}
 
-        list_keys = sorted(dict_images.keys())
+        list_keys = sorted(list(dict_images))
 
-        temporal_gap = 1000/target_framerate
-        target_range = range(list_keys[0],list_keys[-1]+temporal_gap,temporal_gap)
+        temporal_gap = 1000 // target_framerate
+        target_range = range(list_keys[0], list_keys[-1] + temporal_gap, temporal_gap)
 
         for key in target_range:
             image = None

@@ -21,9 +21,34 @@ class TestPipelineFeaturesFormatLoader(unittest.TestCase):
         features_saver.save('grad_002_attack_02_00', self.my_dict)
         features_saver.save('grad_003_real_00_00', self.my_dict)
 
-        self.dict_labeled_basename = {'Train': {'grad_001_real_00_00': 0,
-                                                'grad_002_attack_02_00': 1,
-                                                'grad_003_real_00_00': 0}}
+        self.dict_ground_truth = {'Train': {'grad_001_real_00_00': 0,
+                                            'grad_002_attack_02_00': 1,
+                                            'grad_003_real_00_00': 0}}
+        self.dict_files_and_devices_labels = {'Train': {'grad_001_real_00_00': {'user': 1,
+                                                                                'pai': 0,
+                                                                                'common_pai': 0,
+                                                                                'capture_device': 3,
+                                                                                'common_capture_device': 0,
+                                                                                'scenario': 3,
+                                                                                'light': 1},
+
+                                                        'grad_002_attack_02_00': {'user': 2,
+                                                                                  'pai': 0,
+                                                                                  'common_pai': 1,
+                                                                                  'capture_device': 3,
+                                                                                  'common_capture_device': 0,
+                                                                                  'scenario': 3,
+                                                                                  'light': 1},
+
+                                                        'grad_003_real_00_00': {'user': 3,
+                                                                                'pai': 0,
+                                                                                'common_pai': 0,
+                                                                                'capture_device': 3,
+                                                                                'common_capture_device': 0,
+                                                                                'scenario': 3,
+                                                                                'light': 1}
+                                                        }
+                                              }
 
     def tearDown(self):
         if os.path.isdir(self.result_path):
@@ -31,21 +56,43 @@ class TestPipelineFeaturesFormatLoader(unittest.TestCase):
 
     def test_run_with_wrong_path(self):
         self.assertRaises(IOError,
-                          lambda: PipelineFeaturesFormatLoader.run('wrong_path', self.dict_labeled_basename)
+                          lambda: PipelineFeaturesFormatLoader.run('wrong_path',
+                                                                   self.dict_ground_truth,
+                                                                   self.dict_files_and_devices_labels)
                           )
 
     def test_run_with_empty_dict_labeled_basename(self):
         self.assertRaises(ValueError,
-                          lambda: PipelineFeaturesFormatLoader.run(TestUtils.get_resources_path(), dict())
+                          lambda: PipelineFeaturesFormatLoader.run(TestUtils.get_resources_path(),
+                                                                   dict(),
+                                                                   self.dict_files_and_devices_labels)
+                          )
+
+    def test_run_with_empty_dict_files_and_devices_labels(self):
+        self.assertRaises(ValueError,
+                          lambda: PipelineFeaturesFormatLoader.run(TestUtils.get_resources_path(),
+                                                                   self.dict_ground_truth,
+                                                                   dict())
                           )
 
     def test_run_with_none_dict_labeled_basename(self):
         self.assertRaises(ValueError,
-                          lambda: PipelineFeaturesFormatLoader.run(TestUtils.get_resources_path(), None)
+                          lambda: PipelineFeaturesFormatLoader.run(TestUtils.get_resources_path(),
+                                                                   None,
+                                                                   self.dict_files_and_devices_labels)
                           )
 
-    def test_output_dict_shape_OK(self):
-        dict_pipeline_features_format = PipelineFeaturesFormatLoader.run(self.result_path, self.dict_labeled_basename)
+    def test_run_with_none_dict_files_and_devices_labels(self):
+        self.assertRaises(ValueError,
+                          lambda: PipelineFeaturesFormatLoader.run(TestUtils.get_resources_path(),
+                                                                   self.dict_ground_truth,
+                                                                   None)
+                          )
+
+    def test_should_run_correctly_with_correct_parameters(self):
+        dict_pipeline_features_format = PipelineFeaturesFormatLoader.run(self.result_path,
+                                                                         self.dict_ground_truth,
+                                                                         self.dict_files_and_devices_labels)
         self.assertEqual((18, 3), dict_pipeline_features_format['Train']['features'].shape)
         self.assertEqual((18,), dict_pipeline_features_format['Train']['keyframes'].shape)
-        self.assertEqual((18,), dict_pipeline_features_format['Train']['labels'].shape)
+        self.assertEqual((18,), dict_pipeline_features_format['Train']['common_pai'].shape)

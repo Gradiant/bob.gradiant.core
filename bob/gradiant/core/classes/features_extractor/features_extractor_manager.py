@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # Gradiant's Biometrics Team <biometrics.support@gradiant.org>
 # Copyright (C) 2017 Gradiant, Vigo, Spain
+
+import traceback
 from bob.gradiant.core.classes.accesses.access import Access
 from bob.gradiant.core.classes.accesses.data_augmentator import DataAugmentator
 from bob.gradiant.core.classes.features_extractor.features_extractor import FeaturesExtractor
@@ -9,7 +11,8 @@ from bob.gradiant.core.classes.informer.informer import Informer
 from bob.gradiant.core.classes.storage.features_saver import FeaturesSaver
 
 DOTS = '.' * 20
-SPACES = ' '*20
+SPACES = ' ' * 20
+
 
 class FeaturesExtractorManager:
     base_path = None
@@ -37,24 +40,40 @@ class FeaturesExtractorManager:
         if self.is_already_extracted(access, recreate, data_augmentator):
             informer.message('already extracted' + SPACES, color=Colors.FG.lightgrey, suffix='\r')
         else:
-            dict_images_original = access.load()
-            dict_annotations = access.load_annotations()
-            dict_augmented_data = data_augmentator.augment_sequences(dict_images_original)
-            dict_augmented_annotations = data_augmentator.augment_eyes_annotations(dict_annotations)
-            for key, dict_images in dict_augmented_data.iteritems():
-                informer.message('processing [' + str(len(dict_images.keys()))+ ' images]' + DOTS, color=Colors.bold, suffix='\r')
+            try:
+                dict_images_original = access.load()
+                dict_annotations = access.load_annotations()
+                if dict_annotations is not None:
+                    dict_annotations = {int(k): v for k, v in dict_annotations.items() if not isinstance(k, int)}
+                dict_augmented_data = data_augmentator.augment_sequences(dict_images_original)
+                dict_augmented_annotations = data_augmentator.augment_annotations(dict_annotations,
+                                                                                  dict_images_original)
 
-                dict_features = self.features_extractor.run(dict_images, annotations = dict_augmented_annotations[key])
+                for key, dict_images in dict_augmented_data.items():
+                    informer.message('processing [' + str(len(list(dict_images))) + ' images]' + DOTS,
+                                     color=Colors.bold, suffix='\r')
 
-                if len(dict_features)>0:
-                    name = access.name + data_augmentator.get_suffix(key)
-                    self.features_saver.save(name, dict_features)
+                    dict_features = self.features_extractor.run(dict_images,
+                                                                annotations=dict_augmented_annotations[key])
 
-    def is_already_extracted(self,access, recreate, data_augmentator):
+                    if len(dict_features) > 0:
+                        name = access.name + data_augmentator.get_suffix(key)
+                        if access.database_name:
+                            name = '{}/{}'.format(access.database_name, name)
+                        self.features_saver.save(name, dict_features)
+
+            except Exception:
+                traceback.print_exc()
+                informer.message('imposible to load or process the access ({})'.format(access.name))
+
+    def is_already_extracted(self, access, recreate, data_augmentator):
         if recreate:
             return False
         for suffix in data_augmentator.get_all_suffixes():
-            if not self.features_saver.file_exists(access.name+suffix):
+            name = access.name
+            if access.database_name:
+                name = '{}/{}'.format(access.database_name, name)
+            if not self.features_saver.file_exists(name + suffix):
                 return False
         return True
 

@@ -1,9 +1,15 @@
 #!/usr/bin/env python
 # Gradiant's Biometrics Team <biometrics.support@gradiant.org>
 # Copyright (C) 2017 Gradiant, Vigo, Spain
-import warnings
-import h5py
 import os
+import h5py
+import warnings
+import numpy as np
+
+try:
+    basestring
+except NameError:
+    basestring = str
 
 
 class EndToEndInfo(object):
@@ -13,8 +19,8 @@ class EndToEndInfo(object):
             raise IOError('File (' + path_filename + ') does not exist')
         file_root = h5py.File(path_filename, 'r')
         dict_from_file = {}
-        for key, value in file_root.iteritems():
-            dict_from_file[key.encode("utf-8")] = value[...]
+        for key, value in file_root.items():
+            dict_from_file[str(key)] = value[...]
         file_root.close()
 
         end_to_end_info = EndToEndInfo(str(dict_from_file['name_algorithm']),
@@ -25,8 +31,8 @@ class EndToEndInfo(object):
                                        list(dict_from_file['scores_list']),
                                        list(dict_from_file['time_of_delay_list']),
                                        list(dict_from_file['cpu_time_list']),
-                                       list(dict_from_file['labels_list']),
-                                       list(dict_from_file['benchmark_labels_list']))
+                                       [x.decode('utf-8') for x in dict_from_file['labels_list']],
+                                       [x.decode('utf-8') for x in dict_from_file['benchmark_labels_list']])
 
         return end_to_end_info
 
@@ -80,19 +86,18 @@ class EndToEndInfo(object):
     # overriding this to return tuples of (key,value)
     def __iter__(self):
         return iter([('name_algorithm', self.name_algorithm),
-                                   ('framerate', self.framerate),
-                                   ('total_time_of_acquisition', self.total_time_of_acquisition),
-                                   ('processor', self.processor),
-                                   ('processed_frames', self.processed_frames),
-                                   ('scores_list', self.scores_list),
-                                   ('time_of_delay_list', self.time_of_delay_list),
-                                   ('cpu_time_list', self.cpu_time_list),
-                                   ('labels_list', self.labels_list),
-                                   ('benchmark_labels_list', self.benchmark_labels_list)])
-
+                     ('framerate', self.framerate),
+                     ('total_time_of_acquisition', self.total_time_of_acquisition),
+                     ('processor', self.processor),
+                     ('processed_frames', self.processed_frames),
+                     ('scores_list', self.scores_list),
+                     ('time_of_delay_list', self.time_of_delay_list),
+                     ('cpu_time_list', self.cpu_time_list),
+                     ('labels_list', self.labels_list),
+                     ('benchmark_labels_list', self.benchmark_labels_list)])
 
     def get_dict(self):
-        return {'end2end': { self.name_algorithm: dict(self)}}
+        return {'end2end': {self.name_algorithm: dict(self)}}
 
     def save(self, path):
         dict_object = dict(self)
@@ -104,7 +109,17 @@ class EndToEndInfo(object):
         if not dict_object:
             raise TypeError('Object is empty!')
 
-        for key, value in dict_object.iteritems():
-            file_root.create_dataset(key, data=value)
+        for key, value in dict_object.items():
+            if self._is_list_of_strings(value):
+                file_root.create_dataset(key, data=np.array(value, dtype='S'))
+            else:
+                file_root.create_dataset(key, data=value)
 
         file_root.close()
+
+    @staticmethod
+    def _is_list_of_strings(lst):
+        if not isinstance(lst, list):
+            return False
+        else:
+            return bool(lst) and not isinstance(lst, basestring) and all(isinstance(elem, basestring) for elem in lst)

@@ -3,7 +3,8 @@
 # Copyright (C) 2017 Gradiant, Vigo, Spain
 
 from .access import *
-from .access_modificator import *
+from .access_grid_config import *
+from .access_modifier import *
 from .data_augmentator import *
 from .data_augmentator import *
 from .folder_access import *
