@@ -9,5 +9,6 @@ from .bpcer import *
 from .eer import *
 from .far import *
 from .hter import *
+from .iapmr import *
 from .metric import *
 from .metric_provider import *

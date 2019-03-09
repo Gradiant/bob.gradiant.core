@@ -4,8 +4,6 @@
 import h5py
 import numpy as np
 import os
-import random
-import collections
 
 
 class FeaturesSaver:
@@ -17,7 +15,7 @@ class FeaturesSaver:
             self.set_base_path(base_path)
 
     def __str__(self):
-        return '{} : {} , {}'.format(self.__class__.__name__,self.base_path.__str__(),self.extension.__str__())
+        return '{} : {} , {}'.format(self.__class__.__name__, self.base_path.__str__(), self.extension.__str__())
 
     def save(self, basename_file, features_dict):
         if self.base_path is None:
@@ -37,11 +35,11 @@ class FeaturesSaver:
                 if e.errno != os.errno.EEXIST:
                     raise IOError(e.message)
         file_root = h5py.File(filename, 'w')
-        ordered_dict = collections.OrderedDict(sorted(features_dict.items()))
+        sorted_keyframes = sorted(list(features_dict))
 
-        keyframe = np.array(ordered_dict.keys())
         features = []
-        for value in ordered_dict.values():
+        for keyframe in sorted_keyframes:
+            value = features_dict[keyframe]
             if value is not None:
                 value = np.ravel(value)
                 value = np.expand_dims(value, axis=0)
@@ -49,10 +47,10 @@ class FeaturesSaver:
         features = np.vstack(features)
 
         if features.size > 0:
-            file_root.create_dataset('keyframe', data=keyframe)
+            file_root.create_dataset('keyframe', data=np.array(sorted_keyframes, dtype='S'))
             features_dset = file_root.create_dataset('features', data=features)
 
-            features_dset.attrs.create('single_feature_size', random.choice(ordered_dict.values()).shape[0], dtype=int)
+            features_dset.attrs.create('single_feature_size', value.shape[0], dtype=int)
 
         file_root.close()
 

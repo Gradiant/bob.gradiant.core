@@ -8,7 +8,7 @@ import numpy as np
 from bob.gradiant.core.classes.evaluation.visualization.table_generator import TableGenerator
 from bob.gradiant.core.classes.evaluation.data.pad.summary_performance_result import SummaryPerformanceResult
 
-METRICS_EVALUATION = ['EER','HTER@EER', 'ACER@EER', 'APCER@EER', 'BPCER@EER']
+METRICS_EVALUATION = ['EER', 'HTER@EER', 'ACER@EER', 'APCER@EER', 'BPCER@EER']
 
 
 def highlight_max(data, color='yellow'):
@@ -24,6 +24,7 @@ def highlight_max(data, color='yellow'):
         return pd.DataFrame(np.where(is_max, attr, ''),
                             index=data.index, columns=data.columns)
 
+
 class SummaryTableGenerator(TableGenerator):
     dict_performance = None
 
@@ -33,9 +34,9 @@ class SummaryTableGenerator(TableGenerator):
     def get_dict_all_configurations(self, dict_attacks):
         dict_all_configurations = {}
 
-        for key_metric, dict_metrics in dict_attacks.iteritems():
-            for key_framerate, dict_framerate in dict_metrics.iteritems():
-                for key_time_capture, dict_time_capture in dict_framerate.iteritems():
+        for key_metric, dict_metrics in dict_attacks.items():
+            for key_framerate, dict_framerate in dict_metrics.items():
+                for key_time_capture, dict_time_capture in dict_framerate.items():
                     configuration = self.get_configuration_name(key_framerate, key_time_capture)
                     dict_all_configurations[configuration] = (key_framerate, key_time_capture)
         return dict_all_configurations
@@ -47,16 +48,16 @@ class SummaryTableGenerator(TableGenerator):
         return configuration_name
 
     def check_list_metrics(self, list_metrics):
-        if not set(METRICS_EVALUATION).issubset(list_metrics):
-            raise IOError('SummaryTableGenerator need [' + str(METRICS_EVALUATION) + '] metric to generate the report table')
+        if not all(metric in METRICS_EVALUATION for metric in list_metrics):
+            raise IOError(
+                'SummaryTableGenerator need [' + str(METRICS_EVALUATION) + '] metric to generate the report table')
 
     def get_dict_metrics_from_tuple_configuration(self, dict_attack, tuple_configuration):
 
         key_framerate = tuple_configuration[0]
         key_time_capture = tuple_configuration[1]
-
         dict_metrics = {}
-        for metric in METRICS_EVALUATION:
+        for metric in dict_attack:
             dict_metrics[metric] = dict_attack[metric][key_framerate][key_time_capture]['value']
         return dict_metrics
 
@@ -66,53 +67,64 @@ class SummaryTableGenerator(TableGenerator):
         key_time_capture = tuple_configuration[1]
 
         dict_thresholds = {}
-        for metric in METRICS_EVALUATION:
-            dict_thresholds[metric] = dict_attack[metric][key_framerate][key_time_capture]['threshold']
+        for metric in dict_attack:
+                dict_thresholds[metric] = dict_attack[metric][key_framerate][key_time_capture]['threshold']
         return dict_thresholds
-
-
-
 
     def run(self):
         list_summary_performance_result = []
+        th_dev = 0.0
+        eer_dev = 0.0
 
         if not os.path.isdir(self.result_path):
             os.makedirs(self.result_path)
 
-        for key_subset, dict_subsets in self.dict_performance.iteritems():
-            for key_attack, dict_attacks in dict_subsets.iteritems():
-                list_metrics = dict_attacks.keys()
+        for key_subset, dict_subsets in self.dict_performance.items():
+            for key_attack, dict_attacks in dict_subsets.items():
 
+                list_metrics = list(dict_attacks)
                 self.check_list_metrics(list_metrics)
 
                 dict_all_configurations = self.get_dict_all_configurations(dict_attacks)
-
                 if key_attack == 'all_attacks':
-                    for configuration, tuple_configuration in dict_all_configurations.iteritems():
-                        dict_metrics = self.get_dict_metrics_from_tuple_configuration(dict_attacks, tuple_configuration)
-                        dict_thresholds = self.get_dict_thresholds_from_tuple_configuration(dict_attacks, tuple_configuration)
+                    for configuration, tuple_configuration in dict_all_configurations.items():
+                        dict_metrics = self.get_dict_metrics_from_tuple_configuration(dict_attacks,
+                                                                                      tuple_configuration)
+                        dict_thresholds = self.get_dict_thresholds_from_tuple_configuration(dict_attacks,
+                                                                                            tuple_configuration)
+                        if key_subset == 'Dev':
+                            th_dev = dict_thresholds['EER']
+                            eer_dev = dict_metrics['EER']
 
-                        summary_performance_result = SummaryPerformanceResult(self.name_database,
-                                                                              self.name_algorithm,
-                                                                              configuration,
-                                                                              dict_thresholds['EER'],
-                                                                              dict_metrics['EER'],
-                                                                              dict_metrics['HTER@EER'],
-                                                                              dict_metrics['ACER@EER'],
-                                                                              dict_metrics['APCER@EER'],
-                                                                              dict_metrics['BPCER@EER'])
-                        list_summary_performance_result.append(summary_performance_result)
+                        else:
+                            summary_performance_result = SummaryPerformanceResult(self.name_database,
+                                                                                  self.name_algorithm,
+                                                                                  configuration,
+                                                                                  th_dev,
+                                                                                  eer_dev,
+                                                                                  dict_metrics['HTER@EER'],
+                                                                                  dict_metrics['ACER@EER'],
+                                                                                  dict_metrics['APCER@EER'],
+                                                                                  dict_metrics['BPCER@EER'])
+                            list_summary_performance_result.append(summary_performance_result)
 
                     # table for subset and kind of attack
-                    list_configurations = [summary_performance_result.configuration for summary_performance_result in list_summary_performance_result]
-                    list_eer_dev = [summary_performance_result.eer_dev for summary_performance_result in list_summary_performance_result]
-                    list_threshold_dev = [summary_performance_result.threshold_dev for summary_performance_result in list_summary_performance_result]
-                    list_hter = [summary_performance_result.hter for summary_performance_result in list_summary_performance_result]
-                    list_acer = [summary_performance_result.acer for summary_performance_result in list_summary_performance_result]
-                    list_apcer = [summary_performance_result.apcer for summary_performance_result in list_summary_performance_result]
-                    list_bpcer = [summary_performance_result.bpcer for summary_performance_result in list_summary_performance_result]
+                    list_configurations = [summary_performance_result.configuration for summary_performance_result in
+                                           list_summary_performance_result]
+                    list_eer_dev = [summary_performance_result.eer_dev for summary_performance_result in
+                                    list_summary_performance_result]
+                    list_threshold_dev = [summary_performance_result.threshold_dev for summary_performance_result in
+                                          list_summary_performance_result]
+                    list_hter = [summary_performance_result.hter for summary_performance_result in
+                                 list_summary_performance_result]
+                    list_acer = [summary_performance_result.acer for summary_performance_result in
+                                 list_summary_performance_result]
+                    list_apcer = [summary_performance_result.apcer for summary_performance_result in
+                                  list_summary_performance_result]
+                    list_bpcer = [summary_performance_result.bpcer for summary_performance_result in
+                                  list_summary_performance_result]
 
-                    data_frame = pd.DataFrame({'Database' : self.name_database,
+                    data_frame = pd.DataFrame({'Database': self.name_database,
                                                'Algorithm': self.name_algorithm,
                                                'Configuration': pd.Categorical(list_configurations),
                                                'EER@Dev': pd.Series(list_eer_dev),
@@ -122,12 +134,13 @@ class SummaryTableGenerator(TableGenerator):
                                                'APCER@EER': pd.Series(list_apcer),
                                                'BPCER@EER': pd.Series(list_bpcer),
                                                })
-                    data_frame = data_frame[['Database','Algorithm', 'Configuration', 'EER@Dev', 'Th@Dev', 'HTER@EER', 'ACER@EER', 'APCER@EER', 'BPCER@EER']]
+                    data_frame = data_frame[
+                        ['Database', 'Algorithm', 'Configuration', 'EER@Dev', 'Th@Dev', 'HTER@EER', 'ACER@EER',
+                         'APCER@EER', 'BPCER@EER']]
                     data_frame = data_frame.sort_values(['ACER@EER'], ascending=[True])
-
 
                     filename = '_'.join([self.name_database, key_attack, 'summary_table'])
 
-                    data_frame.to_html(os.path.join(self.result_path,filename +'.html'))
-                    data_frame.to_latex(os.path.join(self.result_path,filename + '.tex'))
-                    data_frame.to_csv(os.path.join(self.result_path,filename +'.csv'))
+                    data_frame.to_html(os.path.join(self.result_path, filename + '.html'))
+                    data_frame.to_latex(os.path.join(self.result_path, filename + '.tex'))
+                    data_frame.to_csv(os.path.join(self.result_path, filename + '.csv'))

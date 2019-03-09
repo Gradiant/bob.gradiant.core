@@ -5,11 +5,12 @@ import shutil
 from bob.gradiant.core import EndToEndInfo, EndToEndTableGenerator
 from bob.gradiant.core.test.test_utils import TestUtils
 
+
 class UnitTestEndToEndTableGenerator(unittest.TestCase):
 
     def setUp(self):
         self.list_extensions = ['html', 'tex', 'csv']
-        self.result_path = os.path.join(TestUtils.get_result_path(),'end_to_end_table_generator')
+        self.result_path = os.path.join(TestUtils.get_result_path(), 'end_to_end_table_generator')
         if os.path.isdir(self.result_path):
             shutil.rmtree(self.result_path)
 
@@ -23,7 +24,7 @@ class UnitTestEndToEndTableGenerator(unittest.TestCase):
         table_generator.run()
 
         for extension in self.list_extensions:
-            name = '_'.join(['end_to_end_table_generator.' +extension])
+            name = '_'.join(['end_to_end_table_generator.' + extension])
             filename = os.path.join(self.result_path, name)
             self.assertTrue(filename)
 

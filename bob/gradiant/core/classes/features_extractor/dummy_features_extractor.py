@@ -9,6 +9,6 @@ class DummyFeaturesExtractor(FeaturesExtractor):
 
     def run(self, dict_images):
         dict_features = {}
-        image = dict_images[dict_images.keys()[0]]
+        image = dict_images[list(dict_images)[0]]
         dict_features['feature'] = image[:10, 1, 1]
         return dict_features

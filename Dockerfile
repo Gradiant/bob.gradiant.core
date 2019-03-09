@@ -10,3 +10,4 @@ RUN conda install bob.io.image bob.io.video bob.measure h5py pandas bokeh pillow
 RUN conda install gitpython=2.1.11
 RUN conda install -c conda-forge opencv
 RUN pip install enum34
+RUN pip install xgboost

@@ -3,7 +3,7 @@
 # Copyright (C) 2017 Gradiant, Vigo, Spain
 import os
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 
 
 class TestUtils(object):
@@ -19,8 +19,17 @@ class TestUtils(object):
         return cls.result_path
 
     @classmethod
-    def get_image(cls):
-        return Image.open(cls.resources_path + '/genuine/01.jpg')
+    def get_image(cls, timestamp=None):
+        image = Image.open(cls.resources_path + '/genuine/01.jpg')
+        if timestamp:
+            ImageDraw.Draw(
+                image  # Image
+            ).text(
+                (0, 0),  # Coordinates
+                'timestamp: {}'.format(timestamp),  # Text
+                (0, 0, 0)  # Color
+            )
+        return image
 
     @classmethod
     def get_numpy_image(cls):
@@ -30,7 +39,7 @@ class TestUtils(object):
     def get_synthetic_dict_image(cls, timestamp_reference=1500000000):
         dict_images = {}
         for timestamp in range(timestamp_reference, timestamp_reference+5000, 33):
-            dict_images[timestamp] = cls.get_image()
+            dict_images[timestamp] = cls.get_image(timestamp)
         return dict_images
 
     @classmethod

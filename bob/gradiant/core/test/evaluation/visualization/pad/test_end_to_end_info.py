@@ -1,26 +1,26 @@
 #!/usr/bin/env python
 # Gradiant's Biometrics Team <biometrics.support@gradiant.org>
 # Copyright (C) 2017 Gradiant, Vigo, Spain
-import unittest
-from bob.gradiant.core import EndToEndInfo
-import numpy as np
 import os
-
+import unittest
+import numpy as np
+from bob.gradiant.core import EndToEndInfo
 from bob.gradiant.core.test.test_utils import TestUtils
 
 
 class UnitTestEndToEndInfo(unittest.TestCase):
-
-    name_algorithm = 'name_algorithm'
-    framerate = 15
-    total_time_of_acquisition = 500
-    processor = 'Intel(R) Xeon(R) CPU X5675 @ 3.07GHz'
-    processed_frames = 5
-    scores_list = list(np.arange(0,1,0.2))
-    time_of_delay_list = [0.15, 0.2, 0.25, 0.30, 0.35]
-    cpu_time_list = [0.1, 0.15, 0.20, 0.25, 0.30]
-    labels_list = ['ATTACK', 'ATTACK', 'ATTACK', 'NO ATTACK', 'NO ATTACK']
-    benchmark_labels_list = ['ATTACK', 'ATTACK', 'NO ATTACK', 'NO ATTACK', 'NO ATTACK']
+    def __init__(self, *args, **kwargs):
+        super(UnitTestEndToEndInfo, self).__init__(*args, **kwargs)
+        self.name_algorithm = 'name_algorithm'
+        self.framerate = 15
+        self.total_time_of_acquisition = 500
+        self.processor = 'Intel(R) Xeon(R) CPU X5675 @ 3.07GHz'
+        self.processed_frames = 5
+        self.scores_list = list(np.arange(0, 1, 0.2))
+        self.time_of_delay_list = [0.15, 0.2, 0.25, 0.30, 0.35]
+        self.cpu_time_list = [0.1, 0.15, 0.20, 0.25, 0.30]
+        self.labels_list = ['ATTACK', 'ATTACK', 'ATTACK', 'NO ATTACK', 'NO ATTACK']
+        self.benchmark_labels_list = ['ATTACK', 'ATTACK', 'NO ATTACK', 'NO ATTACK', 'NO ATTACK']
 
     def setUp(self):
         self.result_path = os.path.join(TestUtils.get_result_path(), 'end_to_end_info.h5')
@@ -41,7 +41,7 @@ class UnitTestEndToEndInfo(unittest.TestCase):
                                        self.labels_list,
                                        self.benchmark_labels_list)
 
-        self.assertTrue(isinstance(end_to_end_info,EndToEndInfo))
+        self.assertTrue(isinstance(end_to_end_info, EndToEndInfo))
 
     def test_save(self):
         end_to_end_info = EndToEndInfo(self.name_algorithm,
@@ -86,8 +86,3 @@ class UnitTestEndToEndInfo(unittest.TestCase):
         self.assertAlmostEqual(end_to_end_info.cpu_time_list, end_to_end_info_fromfile.cpu_time_list)
         self.assertAlmostEqual(end_to_end_info.labels_list, end_to_end_info_fromfile.labels_list)
         self.assertAlmostEqual(end_to_end_info.benchmark_labels_list, end_to_end_info_fromfile.benchmark_labels_list)
-
-
-
-
-

@@ -33,6 +33,6 @@ class UnitTestDummyDatabase(unittest.TestCase):
         dict_labels = dummy_database.get_ground_truth('Protocol_1')
 
         for subset in dummy_database.get_subsets():
-            self.assertEquals(dict_labels[subset]['genuine'], '0')
-            self.assertEquals(dict_labels[subset]['impostor'], '1')
+            self.assertEquals(dict_labels[subset]['genuine'], 0)
+            self.assertEquals(dict_labels[subset]['impostor'], 1)
 

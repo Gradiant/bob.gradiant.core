@@ -2,11 +2,12 @@
 # Gradiant's Biometrics Team <biometrics.support@gradiant.org>
 # Copyright (C) 2017 Gradiant, Vigo, Spain
 import os
+import h5py
 import numpy as np
 import bob.io.video
 
 from bob.gradiant.core.classes.accesses.access import Access
-from bob.gradiant.core.classes.accesses.access_modificator import AccessModificator
+from bob.gradiant.core.classes.accesses.access_modifier import AccessModifier
 from enum import Enum
 
 
@@ -18,71 +19,81 @@ class RotationRule(Enum):
 
 class VideoAccess(Access):
 
-    def __init__(self, base_path, name, extension, access_modificator = AccessModificator(), rotation_rule = RotationRule.NO_ROTATION, annotation_base_path = None):
+    def __init__(self,
+                 base_path,
+                 name,
+                 extension,
+                 access_modifier=AccessModifier(),
+                 rotation_rule=RotationRule.NO_ROTATION,
+                 annotation_base_path=None,
+                 database_name=None):
         if not os.path.isdir(base_path):
-            raise IOError("Folder does not exist")
+            raise IOError("Folder [] does not exist".format(base_path))
         if name is '':
             raise IOError("Name is empty")
-        if not '.' in extension:
-            raise IOError("extension is not valid. It must start with a point")
+        if extension and '.' not in extension:
+            raise IOError("extension [{}] is not valid. It must start with a point".format(extension))
         self.extension = extension
         self.rotation_rule = rotation_rule
         self.selected_index = None
-        super(VideoAccess,self).__init__(base_path,name, access_modificator, annotation_base_path = annotation_base_path)
+        super(VideoAccess, self).__init__(base_path,
+                                          name,
+                                          access_modifier,
+                                          annotation_base_path=annotation_base_path,
+                                          database_name=database_name)
 
     def __str__(self):
-        return '{}/{}'.format(self.base_path,self.name)
+        return '{}/{}'.format(self.base_path, self.name)
 
-    def set_access_modificator(self, access_modificator):
-        if not isinstance(access_modificator, AccessModificator):
-            raise TypeError("input must be a AccessModificator")
-        self.access_modificator = access_modificator
+    def set_access_modifier(self, access_modifier):
+        if not isinstance(access_modifier, AccessModifier):
+            raise TypeError("input must be a AccessModifier")
+        self.access_modifier = access_modifier
 
     def load(self):
         dict_images = self.load_from_video()
-        original_keys = dict_images.keys()
-        dict_images = self.access_modificator.run(dict_images)
+        original_keys = list(dict_images)
+        dict_images = self.access_modifier.run(dict_images)
         if type(dict_images) is set:
             selected_keys = dict_images
         else:
-            selected_keys = dict_images.keys()
+            selected_keys = list(dict_images)
         all_index = [int(val in selected_keys) for val in sorted(original_keys)]
         self.selected_index = [i for i, e in enumerate(all_index) if e != 0]
         return dict_images
 
     def load_annotations(self):
         annotations = None
-        if self.annotation_base_path is None:
-            filename_annotation = os.path.join(self.base_path, self.name + '.txt')
-        else:
-            filename_annotation = os.path.join(self.annotation_base_path, self.name + '.txt')
-        if os.path.isfile(filename_annotation):
-            eye_list = self.read_dlib_eyes_annotations(filename_annotation)
-            if self.selected_index:
-                eye_list = [eye_list[i] for i in self.selected_index]
-            annotations = {'eyes_list': eye_list}
+        annotations_path = os.path.join(self.base_path, self.name + '.h5')
+        if os.path.isfile(annotations_path):
+            annotations = self.read_mtcnn_annotations(annotations_path)
+            for keyframe in annotations:
+                annotations[keyframe] = {
+                    'bbox': annotations[keyframe][0:4],
+                    'landmarks': annotations[keyframe][4:-1],
+                    'confidence': annotations[keyframe][14]
+                }
         return annotations
 
-    def read_dlib_eyes_annotations(self, filename):
-        with open(filename, 'r') as infile:
-            data = infile.read()
-            line_list = data.splitlines()
+    @staticmethod
+    def read_mtcnn_annotations(filename):
+        file_root = h5py.File(filename, 'r')
+        mtcnn_results = np.asarray(file_root['features'])
+        keyframes = np.asarray(file_root['keyframe']).tolist()
 
-        eye_list = []
-        for line in line_list:
-            values_splitted = line.split(',')
-            eye_left = (int(values_splitted[1]), int(values_splitted[2]))
-            eye_right = (int(values_splitted[3]), int(values_splitted[4]))
-            tuple_eyes = (eye_left, eye_right)
-            eye_list.append(tuple_eyes)
-        return eye_list
+        dict_keyframes_annotations = {}
+        for i, tstamp in enumerate(keyframes):
+            dict_keyframes_annotations[tstamp] = mtcnn_results[i, :]
+
+        return dict_keyframes_annotations
 
     def load_from_video(self):
         dict_images = {}
         filename_video = os.path.join(self.base_path, self.name + self.extension)
 
         if not os.path.isfile(filename_video):
-            raise IOError("Impossible to load the video from this folder. It does not exist")
+            raise IOError("Impossible to load the video from folder []. It does not exist"
+                          .format(filename_video))
         counter = 0
 
         reader = bob.io.video.reader(filename_video)
@@ -97,7 +108,7 @@ class VideoAccess(Access):
             vin = vin[:, :, ::-1, :]
 
         vin = np.swapaxes(np.swapaxes(vin, 1, 2), 2, 3)
-        gap = int(1000/fps)
+        gap = int(1000 / fps)
 
         try:
             for k in range(vin.shape[0]):

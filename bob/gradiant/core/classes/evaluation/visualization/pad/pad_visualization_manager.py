@@ -11,6 +11,12 @@ from bob.gradiant.core.classes.evaluation.visualization.pad.framerate_and_time_c
 from bob.gradiant.core.classes.evaluation.visualization.pad.framerate_and_time_comparison_plotter import \
     FramerateAndTimeComparisonPlotter
 
+try:
+    basestring
+except NameError:
+    basestring = str
+
+
 class PadVisualizationManager:
     def __init__(self, name_database=None, name_algorithm=None, date=None, dict_performance=None, store_path='.'):
         self.asssert_input(date, dict_performance, name_algorithm, name_database, store_path)
@@ -52,7 +58,6 @@ class PadVisualizationManager:
         if not isinstance(date, basestring):
             raise TypeError('date must be a string')
 
-
     def plot_fig_pad_time(self):
         for plotter in self.list_plotters:
             try:
@@ -69,17 +74,16 @@ class PadVisualizationManager:
 
     def plot_fig_roc_comparative_methods(self):
         plotter = RocComparisonPlotter(self.name_database,
-                                          self.name_algorithm,
-                                          self.dict_performance,
-                                          os.path.join(self.store_path, 'end2end','roc'))
+                                       self.name_algorithm,
+                                       self.dict_performance,
+                                       os.path.join(self.store_path, 'end2end', 'roc'))
         plotter.run()
-
 
     def plot_table_end2end(self):
         table_generator = EndToEndTableGenerator(self.name_database,
                                                  self.name_algorithm,
                                                  self.dict_performance,
-                                                 os.path.join(self.store_path, 'end2end','table'))
+                                                 os.path.join(self.store_path, 'end2end', 'table'))
         table_generator.run()
 
 

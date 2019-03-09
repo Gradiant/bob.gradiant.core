@@ -37,8 +37,10 @@ class MultiprocessManager:
                 raise TypeError('Options parameter must be a dictionary or None')
 
     def run(self, object, args_list, function_to_run='run'):
-        results = Parallel(n_jobs=self._n_threads, verbose=self._parallel_verbose)(
-            delayed(parallel_function)(object, function_to_run, argsI) for argsI in args_list)
-
+        try:
+            results = Parallel(n_jobs=self._n_threads, verbose=self._parallel_verbose, backend='multiprocessing')(delayed(parallel_function)(object, function_to_run, argsI) for argsI in args_list)
+        except IOError as e:
+            print(str(e))
+            results = []
         return results
 

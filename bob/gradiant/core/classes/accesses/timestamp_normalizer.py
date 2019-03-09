@@ -14,9 +14,9 @@ class TimestampNormalizer(object):
     def run(dict_images):
         TimestampNormalizer.assert_inputs(dict_images)
 
-        sorted_list_keys = sorted(dict_images.keys())
+        sorted_list_keys = sorted(list(dict_images))
         bias = sorted_list_keys[0]
         normalized_dict_images = {}
-        for key, value in dict_images.iteritems():
+        for key, value in dict_images.items():
             normalized_dict_images[key-bias] = dict_images[key]
         return normalized_dict_images

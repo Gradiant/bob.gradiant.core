@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # Gradiant's Biometrics Team <biometrics.support@gradiant.org>
 # Copyright (C) 2017 Gradiant, Vigo, Spain
-import numpy as np
 import copy
+import numpy as np
 
 
 def mirror(image_original):
@@ -17,12 +17,23 @@ def mirror(image_original):
     return frame_mirror
 
 
-def flip_eyes_list(eyes_list):
-    flipped_eyes_list = []
-    for eye_tuple in eyes_list:
-        flipped_eye_tuple = (eye_tuple[1], eye_tuple[0])
-        flipped_eyes_list.append(flipped_eye_tuple)
-    return flipped_eyes_list
+def flip_mtcnn_annotations(dict_annotations, dict_images):
+    dict_augmented_annotations = copy.deepcopy(dict_annotations)
+
+    for keyframe in dict_annotations:
+        if dict_augmented_annotations['confidence'] != 0.0:
+            width = dict_images[keyframe].shape[1]
+
+            dict_augmented_annotations['bbox'][0] = width - dict_augmented_annotations['bbox'][0]
+            dict_augmented_annotations['bbox'][2] = width - dict_augmented_annotations['bbox'][2]
+
+            dict_augmented_annotations['landmarks'][0] = width - dict_augmented_annotations['landmarks'][0]
+            dict_augmented_annotations['landmarks'][2] = width - dict_augmented_annotations['landmarks'][2]
+            dict_augmented_annotations['landmarks'][4] = width - dict_augmented_annotations['landmarks'][4]
+            dict_augmented_annotations['landmarks'][6] = width - dict_augmented_annotations['landmarks'][6]
+            dict_augmented_annotations['landmarks'][8] = width - dict_augmented_annotations['landmarks'][8]
+
+    return dict_augmented_annotations
 
 
 class DataAugmentator(object):
@@ -37,22 +48,22 @@ class DataAugmentator(object):
         self.is_active = is_active
 
     def augment_sequences(self, dict_images):
-        dict_augmented_data = {'original' : dict_images}
+        dict_augmented_data = {'original': dict_images}
         if self.is_active:
-            keys = dict_images.keys()
-            values = dict_images.values()
+            keys = list(dict_images)
+            values = list(dict_images.values())
             dict_augmented_data['reverse'] = dict(zip(keys, values[::-1]))
-            dict_augmented_data['mirror'] = dict(zip(keys, [mirror(x) for x in values] ))
+            dict_augmented_data['mirror'] = dict(zip(keys, [mirror(x) for x in values]))
             dict_augmented_data['reverse-mirror'] = dict(zip(keys, [mirror(x) for x in values[::-1]]))
 
         return dict_augmented_data
 
-    def augment_eyes_annotations(self, dict_annotations):
+    def augment_annotations(self, dict_annotations, dict_images):
         dict_augmented_annotations = {'original': dict_annotations}
         if self.is_active:
             dict_augmented_annotations['reverse'] = dict_annotations
-            dict_augmented_annotations['mirror'] = { 'eyes_list' : flip_eyes_list(dict_annotations['eyes_list'])}
-            dict_augmented_annotations['reverse-mirror'] = { 'eyes_list' : flip_eyes_list(dict_annotations['eyes_list'])}
+            dict_augmented_annotations['mirror'] = flip_mtcnn_annotations(dict_annotations, dict_images)
+            dict_augmented_annotations['reverse-mirror'] = flip_mtcnn_annotations(dict_annotations, dict_images)
 
         return dict_augmented_annotations
 
@@ -65,7 +76,7 @@ class DataAugmentator(object):
     def get_expanded_metadata(self, metadata):
         if self.is_active:
             expansion = {}
-            for k, v in metadata.iteritems():
+            for k, v in metadata.items():
                 expansion[k + '_r'] = v
                 expansion[k + '_m'] = v
                 expansion[k + '_rm'] = v
@@ -77,7 +88,7 @@ class DataAugmentator(object):
         return self.suffixes[key]
 
     def __str__(self):
-        message = 'AccessModificator [ '
+        message = 'AccessModifier [ '
         message += 'target_framerate = ' + str(self.target_framerate) + ' | '
         message += 'target_duration = ' + str(self.target_duration)
         message += ' ]'

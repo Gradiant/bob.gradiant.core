@@ -7,8 +7,8 @@ import time
 from bob.gradiant.core import FeaturesSaver
 from bob.gradiant.core import PipelineFeaturesFormatLoader
 
-SIZE_FEATURES = 100
-N_FILES = 4000
+SIZE_FEATURES = 200
+N_FILES = 16000
 
 
 def create_fake_n_files(path):
@@ -52,14 +52,19 @@ def create_dummy_real_database():
     features_saver = FeaturesSaver(path)
     for n in range(N_FILES):
         access_name = 'access_{}'.format(n)
-        my_dict = {}
-        my_dict[access_name] = np.ones(SIZE_FEATURES)
+        my_dict = {access_name: np.ones(SIZE_FEATURES)}
         features_saver.save(access_name, my_dict)
 
     dict_train = {}
     for n in range(N_FILES):
         access_name = 'access_{}'.format(n)
-        dict_train[access_name] = 0
+        dict_train[access_name] = {'user': 1,
+                                   'pai': 0,
+                                   'common_pai': 0,
+                                   'capture_device': 3,
+                                   'common_capture_device': 0,
+                                   'scenario': 3,
+                                   'light': 1}
     dict_labeled_basename = {'Train': dict_train}
 
     return path, dict_labeled_basename
@@ -70,7 +75,7 @@ def print_info():
     print('number files:  ' + str(N_FILES))
 
 
-class Loader():
+class Loader:
     def __init__(self):
         pass
 
@@ -80,7 +85,7 @@ class Loader():
         for filename in filename_list:
             try:
                 file_root = h5py.File(filename, 'r')
-                for key in file_root.keys():
+                for key in file_root:
                     dict_features[key] = file_root[key][:]
                 file_root.close()
             except:
@@ -88,16 +93,16 @@ class Loader():
         return dict_features
 
 
-def check_time_sequencial_loader(name, filename_list):
+def check_time_sequential_loader(name, filename_list):
     start = time.time()
     dict_features = Loader.run(filename_list)
     end = time.time()
     time_str = '{0:.4g}'.format(float(end - start))
     print('{} -> elapsed time {} s, to load {} features ({}-length)'.format(name, time_str, len(dict_features), len(
-        dict_features[dict_features.keys()[0]])))
+        dict_features[list(dict_features)[0]])))
 
 
-def check_time_pipeline_format_loader(name, path, filename_list, dict_labeled_basename):
+def check_time_pipeline_format_loader(name, path, dict_labeled_basename):
     start = time.time()
     dict_features = PipelineFeaturesFormatLoader.run(path, dict_labeled_basename)
     end = time.time()
@@ -131,10 +136,11 @@ def main():
 
     print_info()
 
-    check_time_sequencial_loader('Load {} files'.format(N_FILES), get_list_n_files(path_fake_database))
-    check_time_sequencial_loader('Load 1 file{}'.format(' ' * (len(str(N_FILES)))), get_list_1_file(path_fake_database))
-    check_time_pipeline_format_loader('Load from PipelineFeaturesFormatLoader', path_dummy_database,
-                                      get_list_1_file(path_dummy_database), dict_labeled_basename)
+    check_time_sequential_loader('Load {} files'.format(N_FILES), get_list_n_files(path_fake_database))
+    check_time_sequential_loader('Load 1 file{}'.format(' ' * (len(str(N_FILES)))), get_list_1_file(path_fake_database))
+    check_time_pipeline_format_loader('Load from PipelineFeaturesFormatLoader',
+                                      path_dummy_database,
+                                      dict_labeled_basename)
 
     delete_tmp_features([path_fake_database, path_dummy_database])
 

@@ -5,9 +5,11 @@
 import os
 
 from bob.gradiant.core.classes.evaluation.visualization import Plotter
-import matplotlib
-if "BUILD_NUMBER" in os.environ: #Use agg mode on jenkins builds
-    matplotlib.use('agg')
+
+from bob.gradiant.core.classes.evaluation.visualization.import_matplotlib import import_matplotlib
+
+import_matplotlib()
+
 import matplotlib.pyplot as plt
 from bokeh.plotting import figure, output_file, save
 from bokeh.palettes import viridis

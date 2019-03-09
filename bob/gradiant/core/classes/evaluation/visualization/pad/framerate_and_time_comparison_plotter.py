@@ -4,9 +4,10 @@
 
 import os
 from bob.gradiant.core.classes.evaluation.visualization.plotter import Plotter
-import matplotlib
-if "BUILD_NUMBER" in os.environ: #Use agg mode on jenkins builds
-    matplotlib.use('agg')
+from bob.gradiant.core.classes.evaluation.visualization.import_matplotlib import import_matplotlib
+
+import_matplotlib()
+
 import matplotlib.pyplot as plt
 from bokeh.plotting import figure, output_file, save
 from bokeh.palettes import viridis
@@ -17,6 +18,7 @@ import numpy as np
 BOKEH_MARKERS = ["circle", "square", "triangle", "asterisk", "inverted_triangle", "x", "circle_x", "diamond", "cross",
                  "square_x", "circle_cross", "square_cross"]
 PLT_MARKERS = ["o", "s", "^", "*", "v", "x", "D", "+", "p", "H", "|", "2"]
+
 
 class FramerateAndTimeComparisonPlotter(Plotter):
     dict_performance = None
@@ -44,7 +46,7 @@ class FramerateAndTimeComparisonPlotter(Plotter):
                     text_method = "Method: " + self.name_algorithm
                     text_date_info = "Date: " + date_str
                     protocol_info = "Protocol: " + attack + ' - spoofing attack'
-                    text_x_label = "time capture (s)"
+                    text_x_label = r'$T_a (ms)$'
                     text_y_label = metric + " (%)"
 
                     len_metric_keys = len(self.dict_performance[subset][attack][metric].keys())
@@ -56,22 +58,28 @@ class FramerateAndTimeComparisonPlotter(Plotter):
                     fig_plt, ax_plt = plt.subplots()
 
                     # plot one curve for every FPS rate
-                    for index_fps, fps in enumerate(self.dict_performance[subset][attack][metric].keys()):
+                    for index_fps, fps in enumerate(sorted(self.dict_performance[subset][attack][metric].keys())):
                         x_data, y_data, is_standard_evaluation, value_standard_evaluation = self.get_data(attack, fps,
                                                                                                           metric,
                                                                                                           subset)
+                        x_data = x_data * 1000
+                        x_data = x_data.astype('int')
+                        legend_curves = 'FR = ' + str(int(fps)) + ' (FPS)'
 
-                        fig_bokeh.line(x_data, y_data, color=curve_color[index_fps], legend="FPS=" + str(int(fps)),
+                        fig_bokeh.line(x_data, y_data, color=curve_color[index_fps], legend=legend_curves,
                                        line_width=2)
                         fig_bokeh.scatter(x_data, y_data, size=8, marker=line_marker_bokeh[index_fps],
                                           fill_color="white",
                                           fill_alpha=0.6, line_color=curve_color[index_fps],
-                                          legend="FPS=" + str(int(fps)))
+                                          legend=legend_curves)
 
-                        ax_plt.plot(x_data, y_data, linewidth=2, label="FPS=" + str(int(fps)),
+                        ax_plt.plot(x_data, y_data, linewidth=2, label=legend_curves,
                                     marker=line_marker_plt[index_fps],
                                     markerfacecolor="None", markersize=6)
 
+                        axes = fig_plt.gca()
+                        axes.set_xlim([min(x_data), max(x_data)])
+                        axes.set_xticks(x_data)
                         # todo: axes = ax_plt.gca(); axes.set_ylim([0, 40])
 
 
@@ -107,8 +115,8 @@ class FramerateAndTimeComparisonPlotter(Plotter):
                     ax_plt.legend(loc='upper right')
                     title_complete = '\n'.join([text_method, text_database_info, protocol_info])
                     ax_plt.set_title(title_complete)
-                    ax_plt.set_xlabel(text_x_label)
-                    ax_plt.set_ylabel(text_y_label)
+                    ax_plt.set_xlabel(text_x_label, fontsize=25)
+                    ax_plt.set_ylabel(text_y_label, fontsize=20)
 
                     path = os.path.join(matplotlib_store_path,
                                             self.name_database + "_" + attack + "_" + metric + "_figure.png")

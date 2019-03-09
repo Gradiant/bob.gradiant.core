@@ -36,7 +36,6 @@ class IntegrationTestEvaluationAndVisualization(unittest.TestCase):
         visualization_manager.plot_fig_pad_time()
         visualization_manager.plot_table()
 
-
     def test_integration_standard_evaluation(self):
         result_path = os.path.join(TestUtils.get_result_path(), 'integration_standard_evaluation')
         if not os.path.isdir(result_path):
@@ -56,8 +55,8 @@ class IntegrationTestEvaluationAndVisualization(unittest.TestCase):
         date = "2017/09/08 - 16:26:15"
 
         visualization_manager = PadVisualizationManager(name_dataset, name_algorithm, date,
-                                                     dict_performance_visualization,
-                                                     result_path)
+                                                        dict_performance_visualization,
+                                                        result_path)
         visualization_manager.plot_fig_pad_time()
         visualization_manager.plot_table()
 
