@@ -10,19 +10,19 @@ The fastest way to contact the package is to use docker.
 You can download the docker image from dockerhub
 
 ~~~
-docker pull acostapazo/bob.gradiant:latest 
+docker pull acostapazo/bob.gradiant.base:latest 
 ~~~
 
 or build it from Dockerfile
 
 ~~~
-docker build --no-cache -t acostapazo/bob.gradiant:latest  .
+docker build --no-cache -t acostapazo/bob.gradiant.base:latest  .
 ~~~
 
 To check if everything is alright you can run the ci.sh script with:
 
 ~~~
-docker run -v $(pwd):/bob.gradiant.core acostapazo/bob.gradiant:latest bin/bash -c "cd bob.gradiant.core; ./ci.sh"
+docker run -v $(pwd):/bob.gradiant.core acostapazo/bob.gradiant.base:latest bin/bash -c "cd bob.gradiant.core; ./ci.sh"
 ~~~
 
 ## Installation (Manual)
