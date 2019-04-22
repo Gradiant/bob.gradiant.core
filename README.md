@@ -10,19 +10,19 @@ The fastest way to contact the package is to use docker.
 You can download the docker image from dockerhub
 
 ~~~
-docker pull acostapazo/bob.gradiant.base:latest 
+docker pull acostapazo/bob.gradiant:latest 
 ~~~
 
 or build it from Dockerfile
 
 ~~~
-docker build --no-cache -t acostapazo/bob.gradiant.base:latest  .
+docker build --no-cache -t acostapazo/bob.gradiant:latest  .
 ~~~
 
 To check if everything is alright you can run the ci.sh script with:
 
 ~~~
-docker run -v $(pwd):/bob.gradiant.core acostapazo/bob.gradiant.base:latest bin/bash -c "cd bob.gradiant.core; ./ci.sh"
+docker run -v $(pwd):/bob.gradiant.core acostapazo/bob.gradiant:latest bin/bash -c "source activate bob.gradiant; cd bob.gradiant.core; ./ci.sh"
 ~~~
 
 ## Installation (Manual)
@@ -33,32 +33,20 @@ docker run -v $(pwd):/bob.gradiant.core acostapazo/bob.gradiant.base:latest bin/
 2. Create the conda env
 
 ~~~
-    conda create --name bob.gradiant python=2.7
+    conda env create -f envs/ubuntu_environment.yml
+~~~
+
+or if run this in macosx platform
+
+~~~
+    conda env create -f envs/mac_environment.yml
 ~~~
 
 3. Activate the environment and add some channels
 
 ~~~
    source activate bob.gradiant
-   conda config --env --add channels defaults
-   conda config --env --add channels https://www.idiap.ch/software/bob/conda
 ~~~
-
-4. Install dependencies
-
-~~~
-    conda install gitpython h5py pillow scikit-learn mock sphinx_rtd_theme bob.extension
-    pip install enum34
-~~~
-
-
-4. Buildout the bob package
-
-~~~
-    #You should be inside the activated conda env (bob.gradiant.pipelines)
-    python bootstrap-buildout.py
-    bin/buildout
-~~
 
 ## Test
 
