@@ -1,0 +1,1053 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python API &mdash; bob.gradiant.core 1.2.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="User Guide" href="guide.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> bob.gradiant.core
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#accesses">Accesses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#databases-interface">Databases (Interface)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluation">Evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metrics">Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#features-extractor-interface">Features Extractor (Interface)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#informer">Informer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiprocess">Multiprocess</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#storage">Storage</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bob.gradiant.core</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Python API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/py_api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="python-api">
+<h1>Python API<a class="headerlink" href="#python-api" title="Permalink to this headline">¶</a></h1>
+<p>This section includes information for using the pure Python API of
+<code class="docutils literal notranslate"><span class="pre">bob.gradiant.core</span></code>.</p>
+<span class="target" id="module-bob.gradiant.core"></span><div class="section" id="accesses">
+<h2>Accesses<a class="headerlink" href="#accesses" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bob.gradiant.core.Access">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Access</code><span class="sig-paren">(</span><em>base_path</em>, <em>name</em>, <em>access_modifier=&lt;bob.gradiant.core.classes.accesses.access_modifier.AccessModifier object&gt;</em>, <em>annotation_base_path=None</em>, <em>database_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/access.html#Access"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Access" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="bob.gradiant.core.Access.load">
+<code class="descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/access.html#Access.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Access.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Access.load_annotations">
+<code class="descname">load_annotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/access.html#Access.load_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Access.load_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.FolderAccess">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">FolderAccess</code><span class="sig-paren">(</span><em>base_path</em>, <em>rgb_name</em>, <em>extension=''</em>, <em>depth_name=None</em>, <em>infrared_name=None</em>, <em>access_modifier=&lt;bob.gradiant.core.classes.accesses.access_modifier.AccessModifier object&gt;</em>, <em>annotation_base_path=None</em>, <em>database_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/folder_access.html#FolderAccess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FolderAccess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bob.gradiant.core.classes.accesses.access.Access</span></code></p>
+<dl class="method">
+<dt id="bob.gradiant.core.FolderAccess.set_access_modifier">
+<code class="descname">set_access_modifier</code><span class="sig-paren">(</span><em>access_modifier</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/folder_access.html#FolderAccess.set_access_modifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FolderAccess.set_access_modifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FolderAccess.load">
+<code class="descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/folder_access.html#FolderAccess.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FolderAccess.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FolderAccess.load_from_folder">
+<code class="descname">load_from_folder</code><span class="sig-paren">(</span><em>folder_to_load</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/folder_access.html#FolderAccess.load_from_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FolderAccess.load_from_folder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FolderAccess.load_annotations">
+<code class="descname">load_annotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/folder_access.html#FolderAccess.load_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FolderAccess.load_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FolderAccess.read_mtcnn_annotations">
+<code class="descname">read_mtcnn_annotations</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/folder_access.html#FolderAccess.read_mtcnn_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FolderAccess.read_mtcnn_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FolderAccess.get_key_from_file">
+<code class="descname">get_key_from_file</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/folder_access.html#FolderAccess.get_key_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FolderAccess.get_key_from_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.VideoAccess">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">VideoAccess</code><span class="sig-paren">(</span><em>base_path</em>, <em>name</em>, <em>extension</em>, <em>access_modifier=&lt;bob.gradiant.core.classes.accesses.access_modifier.AccessModifier object&gt;</em>, <em>rotation_rule=&lt;RotationRule.NO_ROTATION: 0&gt;</em>, <em>annotation_base_path=None</em>, <em>database_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/video_access.html#VideoAccess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.VideoAccess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bob.gradiant.core.classes.accesses.access.Access</span></code></p>
+<dl class="method">
+<dt id="bob.gradiant.core.VideoAccess.set_access_modifier">
+<code class="descname">set_access_modifier</code><span class="sig-paren">(</span><em>access_modifier</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/video_access.html#VideoAccess.set_access_modifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.VideoAccess.set_access_modifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.VideoAccess.load">
+<code class="descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/video_access.html#VideoAccess.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.VideoAccess.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.VideoAccess.load_annotations">
+<code class="descname">load_annotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/video_access.html#VideoAccess.load_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.VideoAccess.load_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.VideoAccess.read_mtcnn_annotations">
+<em class="property">static </em><code class="descname">read_mtcnn_annotations</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/video_access.html#VideoAccess.read_mtcnn_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.VideoAccess.read_mtcnn_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.VideoAccess.load_from_video">
+<code class="descname">load_from_video</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/video_access.html#VideoAccess.load_from_video"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.VideoAccess.load_from_video" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.FramerateModificator">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">FramerateModificator</code><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/framerate_modificator.html#FramerateModificator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FramerateModificator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.FramerateModificator.assert_inputs">
+<em class="property">static </em><code class="descname">assert_inputs</code><span class="sig-paren">(</span><em>dict_images</em>, <em>target_framerate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/framerate_modificator.html#FramerateModificator.assert_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FramerateModificator.assert_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.FramerateModificator.run">
+<em class="property">static </em><code class="descname">run</code><span class="sig-paren">(</span><em>dict_images</em>, <em>target_framerate=30</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/framerate_modificator.html#FramerateModificator.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FramerateModificator.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.TimestampNormalizer">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">TimestampNormalizer</code><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/timestamp_normalizer.html#TimestampNormalizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.TimestampNormalizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.TimestampNormalizer.assert_inputs">
+<em class="property">static </em><code class="descname">assert_inputs</code><span class="sig-paren">(</span><em>dict_images</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/timestamp_normalizer.html#TimestampNormalizer.assert_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.TimestampNormalizer.assert_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.TimestampNormalizer.run">
+<em class="property">static </em><code class="descname">run</code><span class="sig-paren">(</span><em>dict_images</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/timestamp_normalizer.html#TimestampNormalizer.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.TimestampNormalizer.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.Trimmer">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Trimmer</code><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/trimmer.html#Trimmer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Trimmer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.Trimmer.assert_input">
+<em class="property">static </em><code class="descname">assert_input</code><span class="sig-paren">(</span><em>dict_images</em>, <em>target_duration</em>, <em>starting_time</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/trimmer.html#Trimmer.assert_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Trimmer.assert_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.Trimmer.run">
+<em class="property">static </em><code class="descname">run</code><span class="sig-paren">(</span><em>dict_images</em>, <em>target_duration=-1</em>, <em>starting_time=-1</em>, <em>center_video_acquisition=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/trimmer.html#Trimmer.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Trimmer.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dict_images</strong> – images of the video sequence</p></li>
+<li><p><strong>target_duration</strong> – selected time to keep</p></li>
+<li><p><strong>starting_time</strong> – selected point to start the video. Frames before this value will be discarded</p></li>
+<li><p><strong>center_video_acquisition</strong> – Bool value. If True, it will ignore the starting_time value and crop the video</p></li>
+</ul>
+</dd>
+</dl>
+<p>from the central point.
+:return: dict (key, image) with the filtered values</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.DataAugmentator">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">DataAugmentator</code><span class="sig-paren">(</span><em>is_active=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/data_augmentator.html#DataAugmentator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.DataAugmentator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="bob.gradiant.core.DataAugmentator.suffixes">
+<code class="descname">suffixes</code><em class="property"> = {'mirror': '_m', 'original': '', 'reverse': '_r', 'reverse-mirror': '_rm'}</em><a class="headerlink" href="#bob.gradiant.core.DataAugmentator.suffixes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.DataAugmentator.augment_sequences">
+<code class="descname">augment_sequences</code><span class="sig-paren">(</span><em>dict_images</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/data_augmentator.html#DataAugmentator.augment_sequences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.DataAugmentator.augment_sequences" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.DataAugmentator.augment_annotations">
+<code class="descname">augment_annotations</code><span class="sig-paren">(</span><em>dict_annotations</em>, <em>dict_images</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/data_augmentator.html#DataAugmentator.augment_annotations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.DataAugmentator.augment_annotations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.DataAugmentator.get_all_suffixes">
+<code class="descname">get_all_suffixes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/data_augmentator.html#DataAugmentator.get_all_suffixes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.DataAugmentator.get_all_suffixes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.DataAugmentator.get_expanded_metadata">
+<code class="descname">get_expanded_metadata</code><span class="sig-paren">(</span><em>metadata</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/data_augmentator.html#DataAugmentator.get_expanded_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.DataAugmentator.get_expanded_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.DataAugmentator.get_suffix">
+<code class="descname">get_suffix</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/accesses/data_augmentator.html#DataAugmentator.get_suffix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.DataAugmentator.get_suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="databases-interface">
+<h2>Databases (Interface)<a class="headerlink" href="#databases-interface" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
+<dl class="class">
+<dt id="bob.gradiant.core.Database">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Database</code><span class="sig-paren">(</span><em>base_path</em>, <em>type_database=&lt;TypeDatabase.SPLIT: 0&gt;</em>, <em>annotation_base_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/databases/database.html#Database"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="bob.gradiant.core.Database.get_protocols">
+<code class="descname">get_protocols</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/databases/database.html#Database.get_protocols"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Database.get_protocols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Database.get_subsets">
+<code class="descname">get_subsets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/databases/database.html#Database.get_subsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Database.get_subsets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Database.get_capture_devices">
+<code class="descname">get_capture_devices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/databases/database.html#Database.get_capture_devices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Database.get_capture_devices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Database.get_attack_dict">
+<code class="descname">get_attack_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/databases/database.html#Database.get_attack_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Database.get_attack_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Database.get_all_accesses">
+<code class="descname">get_all_accesses</code><span class="sig-paren">(</span><em>access_modifier=&lt;bob.gradiant.core.classes.accesses.access_modifier.AccessModifier object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/databases/database.html#Database.get_all_accesses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Database.get_all_accesses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Database.get_all_labels">
+<code class="descname">get_all_labels</code><span class="sig-paren">(</span><em>protocol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/databases/database.html#Database.get_all_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Database.get_all_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Database.get_ground_truth">
+<code class="descname">get_ground_truth</code><span class="sig-paren">(</span><em>protocol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/databases/database.html#Database.get_ground_truth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Database.get_ground_truth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.TypeDatabase">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">TypeDatabase</code><a class="reference internal" href="_modules/bob/gradiant/core/classes/databases/database.html#TypeDatabase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.TypeDatabase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/enum.html#enum.Enum" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="bob.gradiant.core.TypeDatabase.SPLIT">
+<code class="descname">SPLIT</code><em class="property"> = 0</em><a class="headerlink" href="#bob.gradiant.core.TypeDatabase.SPLIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.TypeDatabase.ALL_FILES_TOGETHER">
+<code class="descname">ALL_FILES_TOGETHER</code><em class="property"> = 1</em><a class="headerlink" href="#bob.gradiant.core.TypeDatabase.ALL_FILES_TOGETHER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="evaluation">
+<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data">
+<h3>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="bob.gradiant.core.Performance">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Performance</code><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/data/performance.html#Performance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Performance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="bob.gradiant.core.Performance.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>metric_name</em>, <em>value</em>, <em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/data/performance.html#Performance.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Performance.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.PerformanceContainer">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">PerformanceContainer</code><span class="sig-paren">(</span><em>performance</em>, <em>type_eval</em>, <em>fps</em>, <em>t_capture</em>, <em>attack_type</em>, <em>name_dataset</em>, <em>name_algorithm</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/data/performance_container.html#PerformanceContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.PerformanceContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.PerformanceExtractor">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">PerformanceExtractor</code><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/data/performance_extractor.html#PerformanceExtractor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.PerformanceExtractor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.PerformanceExtractor.run">
+<em class="property">static </em><code class="descname">run</code><span class="sig-paren">(</span><em>metric</em>, <em>scores_container</em>, <em>threshold=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/data/performance_extractor.html#PerformanceExtractor.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.PerformanceExtractor.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="metrics">
+<h3>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="bob.gradiant.core.Metric">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Metric</code><span class="sig-paren">(</span><em>name</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/metric.html#Metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="bob.gradiant.core.Metric.threshold_needed">
+<code class="descname">threshold_needed</code><em class="property"> = None</em><a class="headerlink" href="#bob.gradiant.core.Metric.threshold_needed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Metric.name">
+<code class="descname">name</code><em class="property"> = None</em><a class="headerlink" href="#bob.gradiant.core.Metric.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Metric.type">
+<code class="descname">type</code><em class="property"> = None</em><a class="headerlink" href="#bob.gradiant.core.Metric.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.Metric.assert_input">
+<em class="property">static </em><code class="descname">assert_input</code><span class="sig-paren">(</span><em>self</em>, <em>y_score</em>, <em>y_true</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/metric.html#Metric.assert_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Metric.assert_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Metric.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>y_score</em>, <em>y_true</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/metric.html#Metric.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Metric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Metric.metric_needs_threshold">
+<code class="descname">metric_needs_threshold</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/metric.html#Metric.metric_needs_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Metric.metric_needs_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.Acer">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Acer</code><span class="sig-paren">(</span><em>name</em>, <em>threshold=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/acer.html#Acer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Acer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bob.gradiant.core.classes.evaluation.metrics.metric.Metric</span></code></p>
+<dl class="method">
+<dt id="bob.gradiant.core.Acer.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>y_score</em>, <em>y_true</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/acer.html#Acer.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Acer.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Acer.set_threshold">
+<code class="descname">set_threshold</code><span class="sig-paren">(</span><em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/acer.html#Acer.set_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Acer.set_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.Apcer">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Apcer</code><span class="sig-paren">(</span><em>name</em>, <em>threshold=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/apcer.html#Apcer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Apcer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bob.gradiant.core.classes.evaluation.metrics.metric.Metric</span></code></p>
+<p>Attack Presentation Classification Error Rate: proportion of attack presentations incorrectly classified as bona fide presentations</p>
+<dl class="method">
+<dt id="bob.gradiant.core.Apcer.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>y_score</em>, <em>y_true</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/apcer.html#Apcer.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Apcer.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Apcer.set_threshold">
+<code class="descname">set_threshold</code><span class="sig-paren">(</span><em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/apcer.html#Apcer.set_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Apcer.set_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.Bpcer">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Bpcer</code><span class="sig-paren">(</span><em>name</em>, <em>threshold=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/bpcer.html#Bpcer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Bpcer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bob.gradiant.core.classes.evaluation.metrics.metric.Metric</span></code></p>
+<dl class="method">
+<dt id="bob.gradiant.core.Bpcer.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>y_score</em>, <em>y_true</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/bpcer.html#Bpcer.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Bpcer.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Bpcer.set_threshold">
+<code class="descname">set_threshold</code><span class="sig-paren">(</span><em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/bpcer.html#Bpcer.set_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Bpcer.set_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.Auc">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Auc</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/auc.html#Auc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Auc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bob.gradiant.core.classes.evaluation.metrics.metric.Metric</span></code></p>
+<dl class="method">
+<dt id="bob.gradiant.core.Auc.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>y_score</em>, <em>y_true</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/auc.html#Auc.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Auc.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Auc.set_threshold">
+<code class="descname">set_threshold</code><span class="sig-paren">(</span><em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/auc.html#Auc.set_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Auc.set_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.Eer">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Eer</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/eer.html#Eer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Eer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bob.gradiant.core.classes.evaluation.metrics.metric.Metric</span></code></p>
+<dl class="method">
+<dt id="bob.gradiant.core.Eer.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>y_score</em>, <em>y_true</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/eer.html#Eer.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Eer.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Eer.set_threshold">
+<code class="descname">set_threshold</code><span class="sig-paren">(</span><em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/eer.html#Eer.set_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Eer.set_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.Far">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Far</code><span class="sig-paren">(</span><em>name</em>, <em>far_value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/far.html#Far"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Far" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bob.gradiant.core.classes.evaluation.metrics.metric.Metric</span></code></p>
+<dl class="method">
+<dt id="bob.gradiant.core.Far.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>y_score</em>, <em>y_true</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/far.html#Far.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Far.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Far.set_threshold">
+<code class="descname">set_threshold</code><span class="sig-paren">(</span><em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/far.html#Far.set_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Far.set_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.Hter">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Hter</code><span class="sig-paren">(</span><em>name</em>, <em>threshold=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/hter.html#Hter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Hter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bob.gradiant.core.classes.evaluation.metrics.metric.Metric</span></code></p>
+<dl class="method">
+<dt id="bob.gradiant.core.Hter.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>y_score</em>, <em>y_true</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/hter.html#Hter.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Hter.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Hter.set_threshold">
+<code class="descname">set_threshold</code><span class="sig-paren">(</span><em>threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/evaluation/metrics/hter.html#Hter.set_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Hter.set_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="features-extractor-interface">
+<h2>Features Extractor (Interface)<a class="headerlink" href="#features-extractor-interface" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bob.gradiant.core.FeaturesExtractor">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">FeaturesExtractor</code><a class="reference internal" href="_modules/bob/gradiant/core/classes/features_extractor/features_extractor.html#FeaturesExtractor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesExtractor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="bob.gradiant.core.FeaturesExtractor.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>dict_images</em>, <em>annotations=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/features_extractor/features_extractor.html#FeaturesExtractor.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesExtractor.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.FeaturesExtractorManager">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">FeaturesExtractorManager</code><span class="sig-paren">(</span><em>features_extractor</em>, <em>features_saver</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/features_extractor/features_extractor_manager.html#FeaturesExtractorManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesExtractorManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="bob.gradiant.core.FeaturesExtractorManager.base_path">
+<code class="descname">base_path</code><em class="property"> = None</em><a class="headerlink" href="#bob.gradiant.core.FeaturesExtractorManager.base_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="bob.gradiant.core.FeaturesExtractorManager.assert_input">
+<em class="property">classmethod </em><code class="descname">assert_input</code><span class="sig-paren">(</span><em>features_extractor</em>, <em>features_saver</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/features_extractor/features_extractor_manager.html#FeaturesExtractorManager.assert_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesExtractorManager.assert_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FeaturesExtractorManager.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>access</em>, <em>informer=&lt;bob.gradiant.core.classes.informer.informer.Informer object&gt;</em>, <em>recreate=False</em>, <em>data_augmentator=&lt;bob.gradiant.core.classes.accesses.data_augmentator.DataAugmentator object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/features_extractor/features_extractor_manager.html#FeaturesExtractorManager.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesExtractorManager.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FeaturesExtractorManager.is_already_extracted">
+<code class="descname">is_already_extracted</code><span class="sig-paren">(</span><em>access</em>, <em>recreate</em>, <em>data_augmentator</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/features_extractor/features_extractor_manager.html#FeaturesExtractorManager.is_already_extracted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesExtractorManager.is_already_extracted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FeaturesExtractorManager.set_base_path">
+<code class="descname">set_base_path</code><span class="sig-paren">(</span><em>base_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/features_extractor/features_extractor_manager.html#FeaturesExtractorManager.set_base_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesExtractorManager.set_base_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FeaturesExtractorManager.get_feature_extractor_name">
+<code class="descname">get_feature_extractor_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/features_extractor/features_extractor_manager.html#FeaturesExtractorManager.get_feature_extractor_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesExtractorManager.get_feature_extractor_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="informer">
+<h2>Informer<a class="headerlink" href="#informer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bob.gradiant.core.Informer">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Informer</code><span class="sig-paren">(</span><em>title='informer'</em>, <em>verbose=False</em>, <em>verbose_level=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/informer/informer.html#Informer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Informer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="bob.gradiant.core.Informer.set_title">
+<code class="descname">set_title</code><span class="sig-paren">(</span><em>title</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/informer/informer.html#Informer.set_title"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Informer.set_title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Informer.highlight_message">
+<code class="descname">highlight_message</code><span class="sig-paren">(</span><em>message</em>, <em>title=None</em>, <em>color='\x1b[46m'</em>, <em>prefix='\x1b[01m'</em>, <em>suffix='\n'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/informer/informer.html#Informer.highlight_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Informer.highlight_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Informer.message">
+<code class="descname">message</code><span class="sig-paren">(</span><em>message</em>, <em>color='\x1b[0m'</em>, <em>prefix=''</em>, <em>suffix=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/informer/informer.html#Informer.message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Informer.message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Informer.progress">
+<code class="descname">progress</code><span class="sig-paren">(</span><em>message</em>, <em>count</em>, <em>total</em>, <em>color='\x1b[0m'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/informer/informer.html#Informer.progress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Informer.progress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.Informer.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>dict_images</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/informer/informer.html#Informer.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Informer.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.Colors">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">Colors</code><a class="reference internal" href="_modules/bob/gradiant/core/classes/informer/colors.html#Colors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Colors class:
+reset all colors with colors.reset
+two subclasses fg for foreground and bg for background.
+use as colors.subclass.colorname.
+i.e. colors.fg.red or colors.bg.green
+also, the generic bold, disable, underline, reverse, strikethrough,
+and invisible work with the main class
+i.e. colors.bold</p>
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.reset">
+<code class="descname">reset</code><em class="property"> = '\x1b[0m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.bold">
+<code class="descname">bold</code><em class="property"> = '\x1b[01m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.bold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.disable">
+<code class="descname">disable</code><em class="property"> = '\x1b[02m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.disable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.underline">
+<code class="descname">underline</code><em class="property"> = '\x1b[04m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.underline" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.reverse">
+<code class="descname">reverse</code><em class="property"> = '\x1b[07m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.reverse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.strikethrough">
+<code class="descname">strikethrough</code><em class="property"> = '\x1b[09m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.strikethrough" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.invisible">
+<code class="descname">invisible</code><em class="property"> = '\x1b[08m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.invisible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.Colors.FG">
+<em class="property">class </em><code class="descname">FG</code><a class="reference internal" href="_modules/bob/gradiant/core/classes/informer/colors.html#Colors.FG"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Colors.FG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.black">
+<code class="descname">black</code><em class="property"> = '\x1b[30m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.black" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.red">
+<code class="descname">red</code><em class="property"> = '\x1b[31m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.red" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.green">
+<code class="descname">green</code><em class="property"> = '\x1b[32m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.green" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.orange">
+<code class="descname">orange</code><em class="property"> = '\x1b[33m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.orange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.blue">
+<code class="descname">blue</code><em class="property"> = '\x1b[34m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.blue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.purple">
+<code class="descname">purple</code><em class="property"> = '\x1b[35m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.purple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.cyan">
+<code class="descname">cyan</code><em class="property"> = '\x1b[36m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.cyan" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.lightgrey">
+<code class="descname">lightgrey</code><em class="property"> = '\x1b[37m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.lightgrey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.darkgrey">
+<code class="descname">darkgrey</code><em class="property"> = '\x1b[90m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.darkgrey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.lightred">
+<code class="descname">lightred</code><em class="property"> = '\x1b[91m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.lightred" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.lightgreen">
+<code class="descname">lightgreen</code><em class="property"> = '\x1b[92m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.lightgreen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.yellow">
+<code class="descname">yellow</code><em class="property"> = '\x1b[93m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.yellow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.lightblue">
+<code class="descname">lightblue</code><em class="property"> = '\x1b[94m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.lightblue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.pink">
+<code class="descname">pink</code><em class="property"> = '\x1b[95m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.pink" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.FG.lightcyan">
+<code class="descname">lightcyan</code><em class="property"> = '\x1b[96m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.FG.lightcyan" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.Colors.BG">
+<em class="property">class </em><code class="descname">BG</code><a class="reference internal" href="_modules/bob/gradiant/core/classes/informer/colors.html#Colors.BG"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.Colors.BG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.BG.black">
+<code class="descname">black</code><em class="property"> = '\x1b[40m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.BG.black" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.BG.red">
+<code class="descname">red</code><em class="property"> = '\x1b[41m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.BG.red" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.BG.green">
+<code class="descname">green</code><em class="property"> = '\x1b[42m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.BG.green" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.BG.orange">
+<code class="descname">orange</code><em class="property"> = '\x1b[43m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.BG.orange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.BG.blue">
+<code class="descname">blue</code><em class="property"> = '\x1b[44m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.BG.blue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.BG.purple">
+<code class="descname">purple</code><em class="property"> = '\x1b[45m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.BG.purple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.BG.cyan">
+<code class="descname">cyan</code><em class="property"> = '\x1b[46m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.BG.cyan" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.Colors.BG.lightgrey">
+<code class="descname">lightgrey</code><em class="property"> = '\x1b[47m'</em><a class="headerlink" href="#bob.gradiant.core.Colors.BG.lightgrey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="multiprocess">
+<h2>Multiprocess<a class="headerlink" href="#multiprocess" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bob.gradiant.core.MultiprocessManager">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">MultiprocessManager</code><span class="sig-paren">(</span><em>n_threads=1</em>, <em>options=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/multiprocess/multiprocess_manager.html#MultiprocessManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.MultiprocessManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>This class is designed to parallelize a FeaturesExtractionManager (bob.gradiant.pad.protocols.classes.features_extractor.features_extractor_manager) run function.
+You can find an example in bob/gradiant/pad/protocols/scripts/parallelized_protocol_example.py where a complete dummy protocol is typed</p>
+<dl class="simple">
+<dt>NOTE: As this class creates multiple python process, each process will get a copy of the arguments,</dt><dd><p>so if your FeaturesExtractedManager needs some resources you ensure they are loaded in each run() function call or they are passed as arguments.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="bob.gradiant.core.MultiprocessManager.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>object</em>, <em>args_list</em>, <em>function_to_run='run'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/multiprocess/multiprocess_manager.html#MultiprocessManager.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.MultiprocessManager.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="storage">
+<h2>Storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bob.gradiant.core.FeaturesSaver">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">FeaturesSaver</code><span class="sig-paren">(</span><em>base_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/storage/features_saver.html#FeaturesSaver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesSaver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="bob.gradiant.core.FeaturesSaver.base_path">
+<code class="descname">base_path</code><em class="property"> = None</em><a class="headerlink" href="#bob.gradiant.core.FeaturesSaver.base_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bob.gradiant.core.FeaturesSaver.extension">
+<code class="descname">extension</code><em class="property"> = '.h5'</em><a class="headerlink" href="#bob.gradiant.core.FeaturesSaver.extension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FeaturesSaver.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>basename_file</em>, <em>features_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/storage/features_saver.html#FeaturesSaver.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesSaver.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="bob.gradiant.core.FeaturesSaver.assert_input">
+<em class="property">classmethod </em><code class="descname">assert_input</code><span class="sig-paren">(</span><em>features_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/storage/features_saver.html#FeaturesSaver.assert_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesSaver.assert_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FeaturesSaver.file_exists">
+<code class="descname">file_exists</code><span class="sig-paren">(</span><em>basename_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/storage/features_saver.html#FeaturesSaver.file_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesSaver.file_exists" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bob.gradiant.core.FeaturesSaver.set_base_path">
+<code class="descname">set_base_path</code><span class="sig-paren">(</span><em>base_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/storage/features_saver.html#FeaturesSaver.set_base_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.FeaturesSaver.set_base_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bob.gradiant.core.PipelineFeaturesFormatLoader">
+<em class="property">class </em><code class="descclassname">bob.gradiant.core.</code><code class="descname">PipelineFeaturesFormatLoader</code><a class="reference internal" href="_modules/bob/gradiant/core/classes/storage/pipeline_features_format_loader.html#PipelineFeaturesFormatLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.PipelineFeaturesFormatLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.PipelineFeaturesFormatLoader.run">
+<em class="property">static </em><code class="descname">run</code><span class="sig-paren">(</span><em>base_path, dict_ground_truth, dict_all_labels, database_name_list=['']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/storage/pipeline_features_format_loader.html#PipelineFeaturesFormatLoader.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.PipelineFeaturesFormatLoader.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>base_path: path where features are stored
+dict_ground_truth: ground truth given by the protocol
+dict_all_labels:</p>
+<blockquote>
+<div><dl>
+<dt>e.g        {‘Train’: {‘grad_001_real_00_00’: {‘user’: 1,</dt><dd><blockquote>
+<div><blockquote>
+<div><p>‘pai’: 0,
+‘common_pai’: 0,
+‘capture_device’: 3,
+‘common_capture_device’: 0,
+‘scenario’: 3,
+‘light’: 1},</p>
+</div></blockquote>
+<dl class="simple">
+<dt>‘grad_002_attack_02_00’: {‘user’: 2,</dt><dd><p>‘pai’: 0,
+‘common_pai’: 1,
+‘capture_device’: 3,
+‘common_capture_device’: 0,
+‘scenario’: 3,
+‘light’: 1},</p>
+</dd>
+<dt>‘grad_003_real_00_00’: {‘user’: 3,</dt><dd><p>‘pai’: 0,
+‘common_pai’: 0,
+‘capture_device’: 3,
+‘common_capture_device’: 0,
+‘scenario’: 3,
+‘light’: 1}</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>database_name_list: specific database folder. e.g [‘replay-mobile’, ‘replay-attack’, …]</dt><dd><p>by default is [‘’], it means that is that features are already in the base path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.PipelineFeaturesFormatLoader.assert_pipeline_dict">
+<em class="property">static </em><code class="descname">assert_pipeline_dict</code><span class="sig-paren">(</span><em>pipeline_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/storage/pipeline_features_format_loader.html#PipelineFeaturesFormatLoader.assert_pipeline_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.PipelineFeaturesFormatLoader.assert_pipeline_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.PipelineFeaturesFormatLoader.get_max_columns_accesses">
+<em class="property">static </em><code class="descname">get_max_columns_accesses</code><span class="sig-paren">(</span><em>dict_all_labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/storage/pipeline_features_format_loader.html#PipelineFeaturesFormatLoader.get_max_columns_accesses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.PipelineFeaturesFormatLoader.get_max_columns_accesses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.PipelineFeaturesFormatLoader.repeat_and_concatenate_labels">
+<em class="property">static </em><code class="descname">repeat_and_concatenate_labels</code><span class="sig-paren">(</span><em>len_features</em>, <em>label</em>, <em>all</em>, <em>label_is_row=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/storage/pipeline_features_format_loader.html#PipelineFeaturesFormatLoader.repeat_and_concatenate_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.PipelineFeaturesFormatLoader.repeat_and_concatenate_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="bob.gradiant.core.PipelineFeaturesFormatLoader.get_concatenated_db_labels_from_dict">
+<em class="property">static </em><code class="descname">get_concatenated_db_labels_from_dict</code><span class="sig-paren">(</span><em>dict_labels_subset_basename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bob/gradiant/core/classes/storage/pipeline_features_format_loader.html#PipelineFeaturesFormatLoader.get_concatenated_db_labels_from_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bob.gradiant.core.PipelineFeaturesFormatLoader.get_concatenated_db_labels_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="guide.html" class="btn btn-neutral" title="User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Gradiant
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
